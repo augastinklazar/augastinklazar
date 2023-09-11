@@ -29,7 +29,7 @@ Apart from my love for development, I find solace in music and cycling. When I'm
 If you want to get in touch with me, don't hesitate to reach out. You can find me on the following platforms:
 
 - LinkedIn: [Augastin K Lazar](https://www.linkedin.com/in/augastin-kl/)
-- Email: [augastinkl@example.com](mailto:augastinkl@example.com)
+- Email: [augastinkl@outlook.com](mailto:augastinkl@outlook.com)
 
 Feel free to explore the repository and get inspired! Together, let's leave a digital footprint that resonates with the world. 🌐✨
 
