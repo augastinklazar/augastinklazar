@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
+import HardwareTextures from './components/HardwareTextures';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TheJourney from './components/TheJourney';
+import HorizontalSchematicExperience from './components/HorizontalSchematicExperience';
+import ExplodedBlueprint25D from './components/ExplodedBlueprint25D';
 import SkillsHUD from './components/SkillsHUD';
 import BlueprintSpecs from './components/BlueprintSpecs';
 import Projects from './components/Projects';
@@ -11,15 +14,12 @@ import TerminalFooter from './components/TerminalFooter';
 
 export default function App() {
   useEffect(() => {
-    // Fast, crisp Lenis smooth scrolling configuration
+    // Ultra-fast, instantaneous, 60fps Lenis smooth scroll
     const lenis = new Lenis({
-      duration: 0.45, // Snappy fast response (reduced from 1.2 to eliminate drag)
-      easing: (t) => 1 - Math.pow(1 - t, 3), // Instant, responsive cubic ease-out
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      lerp: 0.18, // Immediate 1-frame response without input lag
       smoothWheel: true,
-      wheelMultiplier: 1.35, // Faster wheel response
-      touchMultiplier: 2.2, // Fast touch response
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.2,
       infinite: false,
     });
 
@@ -38,6 +38,9 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-vantablack text-steel font-mono selection:bg-ember selection:text-vantablack overflow-x-hidden antialiased">
+      {/* 1. Global Hardware Textures: feTurbulence CRT Noise & Hardware Scanlines */}
+      <HardwareTextures />
+
       {/* Custom Crosshair Cursor with Sonar Ping in Neon Ember */}
       <CustomCursor />
 
@@ -52,17 +55,23 @@ export default function App() {
         {/* Section 2: The Journey - Moving SVG Vector Timeline with Signal Yellow Waypoints */}
         <TheJourney />
 
-        {/* Section 3: Cyberpunk Polar Radar HUD & Number-Scramble Decoders */}
+        {/* Section 3: Experience - Horizontal Schematic Pan (Sticky 60fps Vector Track) */}
+        <HorizontalSchematicExperience />
+
+        {/* Section 4: 2.5D Interactive Exploded Blueprint Interstitial (Isometric 3-Layer Stack) */}
+        <ExplodedBlueprint25D />
+
+        {/* Section 5: Cyberpunk Polar Radar HUD & Number-Scramble Decoders */}
         <SkillsHUD />
 
-        {/* Section 4: Blueprint Specifications & Personal Manifesto */}
+        {/* Section 6: Blueprint Specifications & Personal Manifesto */}
         <BlueprintSpecs />
 
-        {/* Section 5: Featured Engineering Dossiers */}
+        {/* Section 7: Featured Engineering Dossiers */}
         <Projects />
       </main>
 
-      {/* Section 6: Interactive Terminal Command Prompt Contact Footer */}
+      {/* Section 8: Interactive Terminal Command Prompt Contact Footer */}
       <TerminalFooter />
     </div>
   );

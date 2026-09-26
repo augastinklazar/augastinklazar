@@ -21,8 +21,9 @@ export default function Navbar() {
 
   const navLinks = [
     { label: '// JOURNEY', href: '#journey' },
+    { label: '// SCHEMATIC', href: '#experience' },
+    { label: '// 2.5D_STACK', href: '#exploded-blueprint' },
     { label: '// RADAR_HUD', href: '#skills-hud' },
-    { label: '// BLUEPRINT', href: '#specs' },
     { label: '// DOSSIERS', href: '#projects' },
     { label: '// TERMINAL', href: '#contact' },
   ];
