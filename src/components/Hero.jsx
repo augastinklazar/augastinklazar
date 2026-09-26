@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Shield, Terminal, ArrowDownRight, Compass, Cpu, Radio, Zap } from 'lucide-react';
+import { Shield, Terminal, ArrowDownRight, Zap } from 'lucide-react';
 import anime from 'animejs';
 import HeroTwoWireframe from './canvas/HeroTwoWireframe';
 import { useTypewriter } from '../hooks/useAnime';
@@ -12,7 +12,7 @@ export default function Hero() {
   const typedSubtitle = useTypewriter(
     'ETO Cadet // Embedded Systems Engineer // YIP 4.0 Innovator',
     35,
-    600
+    500
   );
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export default function Hero() {
         opacity: [0, 1],
         scale: [0.8, 1],
         rotateZ: [-8, 0],
-        delay: anime.stagger(45, { start: 250 }),
-        duration: 900,
+        delay: anime.stagger(40, { start: 200 }),
+        duration: 850,
         easing: 'easeOutBack',
       });
     }
@@ -38,8 +38,8 @@ export default function Hero() {
         targets: badges,
         translateX: [-25, 0],
         opacity: [0, 1],
-        delay: anime.stagger(80, { start: 700 }),
-        duration: 800,
+        delay: anime.stagger(70, { start: 600 }),
+        duration: 750,
         easing: 'easeOutCubic',
       });
     }
@@ -49,39 +49,39 @@ export default function Hero() {
   const lastName = 'K LAZAR';
 
   return (
-    <section className="relative min-h-screen pt-28 pb-20 flex items-center justify-center overflow-hidden bg-obsidian-950">
+    <section className="relative min-h-screen pt-28 pb-20 flex items-center justify-center overflow-hidden bg-vantablack">
       
       {/* Background Blueprint Grid & Two.js Vector Canvas */}
-      <div className="absolute inset-0 bg-blueprint-grid opacity-75 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[650px] pointer-events-none opacity-40 z-0">
+      <div className="absolute inset-0 bg-blueprint-grid opacity-70 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[650px] pointer-events-none opacity-45 z-0">
         <HeroTwoWireframe />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full relative z-10">
         
         {/* Terminal Header Telemetry Bar */}
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4 p-3 rounded-xl bg-obsidian-900/90 border border-cyan-electric/25 backdrop-blur-md font-mono text-xs">
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4 p-3 rounded-xl bg-charcoal/90 border border-ember/25 backdrop-blur-md font-mono text-xs">
           <div className="flex items-center gap-3">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-electric opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-electric"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ember opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-ember"></span>
             </span>
-            <span className="text-cyan-electric font-semibold tracking-wider uppercase">
+            <span className="text-ember font-semibold tracking-wider uppercase">
               RADAR SYS // ONLINE 9.41 GHz
             </span>
-            <span className="text-neutral-600 hidden sm:inline">|</span>
-            <span className="text-neutral-400 hidden sm:inline">
+            <span className="text-neutral-700 hidden sm:inline">|</span>
+            <span className="text-steel hidden sm:inline">
               MOL LNG CADRE &bull; STCW III/6
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-[11px] text-neutral-400">
-            <span className="text-gold-warning font-mono flex items-center gap-1">
-              <Zap className="w-3.5 h-3.5 text-gold-warning" />
+          <div className="flex items-center gap-4 text-[11px] text-steel">
+            <span className="text-signal font-mono flex items-center gap-1 font-bold">
+              <Zap className="w-3.5 h-3.5 text-signal" />
               6.6kV AUTOMATION
             </span>
-            <span className="text-neutral-600">&bull;</span>
-            <span className="text-neutral-300 font-mono">
+            <span className="text-neutral-700">&bull;</span>
+            <span className="text-steel-light font-mono">
               THRISSUR, KL [10.52°N, 76.21°E]
             </span>
           </div>
@@ -94,25 +94,25 @@ export default function Hero() {
           <div className="lg:col-span-7 flex flex-col space-y-6">
             
             {/* Top Cadre Pill */}
-            <div className="self-start inline-flex items-center gap-2 px-3 py-1 rounded bg-cyan-electric/10 border border-cyan-electric/40 text-[11px] font-mono tracking-widest text-cyan-electric uppercase">
-              <Shield className="w-3.5 h-3.5 text-cyan-electric" />
+            <div className="self-start inline-flex items-center gap-2 px-3 py-1 rounded bg-charcoal border border-ember/40 text-[11px] font-mono tracking-widest text-ember uppercase">
+              <Shield className="w-3.5 h-3.5 text-ember" />
               <span>ELECTRO TECHNICAL OFFICER CADET</span>
             </div>
 
-            {/* Massive Syne Header with Anime.js Letters */}
+            {/* Massive Syne Header with Pure White & Neon Ember */}
             <div ref={nameContainerRef} className="space-y-1">
               <h1 className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-white leading-[1.02] flex flex-wrap">
                 <span className="mr-4 inline-flex overflow-hidden">
                   {firstName.split('').map((char, i) => (
                     <span
                       key={i}
-                      className="hero-letter inline-block text-white hover:text-cyan-electric transition-colors"
+                      className="hero-letter inline-block text-white hover:text-ember transition-colors"
                     >
                       {char}
                     </span>
                   ))}
                 </span>
-                <span className="inline-flex overflow-hidden text-transparent bg-clip-text bg-gradient-to-r from-cyan-electric via-gold-warning to-coral-neon text-glow-cyan">
+                <span className="inline-flex overflow-hidden text-transparent bg-clip-text bg-gradient-to-r from-ember via-signal to-white text-glow-ember">
                   {lastName.split('').map((char, i) => (
                     <span
                       key={i}
@@ -126,37 +126,37 @@ export default function Hero() {
             </div>
 
             {/* Typewriter Subtitle */}
-            <div className="h-8 flex items-center font-mono text-base sm:text-lg text-neutral-300">
-              <span className="text-cyan-electric mr-2">&gt;</span>
+            <div className="h-8 flex items-center font-mono text-base sm:text-lg text-steel-light">
+              <span className="text-ember mr-2 font-bold">&gt;</span>
               <span>{typedSubtitle}</span>
-              <span className="inline-block w-2.5 h-4 ml-1.5 bg-cyan-electric animate-blink" />
+              <span className="inline-block w-2.5 h-4 ml-1.5 bg-ember animate-blink" />
             </div>
 
-            {/* Humanized Bio Description */}
-            <p className="text-neutral-400 text-sm sm:text-base leading-relaxed max-w-xl font-sans">
-              Engineering resilience across high-seas power grids at <strong className="text-white font-semibold">Mitsui O.S.K. Lines</strong>. Specialized in high-voltage 6.6kV distribution, power management systems (PMS), bare-metal firmware on STM32/FreeRTOS, and low-latency robotics. State winner of Kerala’s <strong className="text-gold-warning font-semibold">YIP 4.0</strong> for autonomous telemetry systems.
+            {/* Humanized Bio Description in Neutral Steel (#9E9E9E) */}
+            <p className="text-steel text-sm sm:text-base leading-relaxed max-w-xl font-sans">
+              Engineering resilience across high-seas power grids at <strong className="text-white font-semibold">Mitsui O.S.K. Lines</strong>. Specialized in high-voltage 6.6kV distribution, power management systems (PMS), bare-metal firmware on STM32/FreeRTOS, and low-latency robotics. State winner of Kerala’s <strong className="text-signal font-semibold">YIP 4.0</strong> for autonomous telemetry systems.
             </p>
 
-            {/* Quick Tactical Telemetry Badges */}
+            {/* Quick Tactical Telemetry Badges in Matte Charcoal (#141414) */}
             <div ref={badgesRef} className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 font-mono text-xs">
-              <div className="hud-element p-3 rounded-lg bg-obsidian-900 border border-neutral-800 hover:border-cyan-electric/50 transition-colors">
-                <div className="text-cyan-electric font-bold text-base">MOL LNG</div>
-                <div className="text-[10px] text-neutral-500 uppercase mt-0.5">Cadre Fleet</div>
+              <div className="hud-element p-3 rounded-lg bg-charcoal border border-neutral-800 hover:border-ember/50 transition-colors">
+                <div className="text-ember font-bold text-base">MOL LNG</div>
+                <div className="text-[10px] text-steel-dark uppercase mt-0.5">Cadre Fleet</div>
               </div>
 
-              <div className="hud-element p-3 rounded-lg bg-obsidian-900 border border-neutral-800 hover:border-gold-warning/50 transition-colors">
-                <div className="text-gold-warning font-bold text-base">6.6 kV+</div>
-                <div className="text-[10px] text-neutral-500 uppercase mt-0.5">Switchboards</div>
+              <div className="hud-element p-3 rounded-lg bg-charcoal border border-neutral-800 hover:border-signal/50 transition-colors">
+                <div className="text-signal font-bold text-base">6.6 kV+</div>
+                <div className="text-[10px] text-steel-dark uppercase mt-0.5">Switchboards</div>
               </div>
 
-              <div className="hud-element p-3 rounded-lg bg-obsidian-900 border border-neutral-800 hover:border-cyan-electric/50 transition-colors">
+              <div className="hud-element p-3 rounded-lg bg-charcoal border border-neutral-800 hover:border-ember/50 transition-colors">
                 <div className="text-white font-bold text-base">YIP 4.0</div>
-                <div className="text-[10px] text-neutral-500 uppercase mt-0.5">State Winner</div>
+                <div className="text-[10px] text-steel-dark uppercase mt-0.5">State Winner</div>
               </div>
 
-              <div className="hud-element p-3 rounded-lg bg-obsidian-900 border border-neutral-800 hover:border-coral-neon/50 transition-colors">
-                <div className="text-coral-neon font-bold text-base">STM32</div>
-                <div className="text-[10px] text-neutral-500 uppercase mt-0.5">RTOS & Robotics</div>
+              <div className="hud-element p-3 rounded-lg bg-charcoal border border-neutral-800 hover:border-signal/50 transition-colors">
+                <div className="text-signal font-bold text-base">STM32</div>
+                <div className="text-[10px] text-steel-dark uppercase mt-0.5">RTOS & Robotics</div>
               </div>
             </div>
 
@@ -166,7 +166,7 @@ export default function Hero() {
                 href="#journey"
                 onClick={() => sound.playClick()}
                 onMouseEnter={() => sound.playHover()}
-                className="px-6 py-3.5 rounded-lg bg-cyan-electric text-obsidian-950 font-mono font-bold text-xs uppercase tracking-widest flex items-center gap-2 hover:box-glow-cyan hover:scale-105 transition-all"
+                className="px-6 py-3.5 rounded-lg bg-ember text-vantablack font-mono font-bold text-xs uppercase tracking-widest flex items-center gap-2 hover:box-glow-ember hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,109,0,0.35)]"
                 data-cursor="TRAJECTORY"
               >
                 <span>Navigate The Journey</span>
@@ -177,10 +177,10 @@ export default function Hero() {
                 href="#skills-hud"
                 onClick={() => sound.playClick()}
                 onMouseEnter={() => sound.playHover()}
-                className="px-6 py-3.5 rounded-lg bg-obsidian-900 border border-neutral-700 hover:border-gold-warning text-neutral-200 hover:text-white font-mono text-xs uppercase tracking-widest flex items-center gap-2 transition-all"
+                className="px-6 py-3.5 rounded-lg bg-charcoal border border-neutral-800 hover:border-signal text-steel-light hover:text-white font-mono text-xs uppercase tracking-widest flex items-center gap-2 transition-all"
                 data-cursor="DATA HUD"
               >
-                <Terminal className="w-4 h-4 text-gold-warning" />
+                <Terminal className="w-4 h-4 text-signal" />
                 <span>Launch Data HUD</span>
               </a>
             </div>
@@ -191,11 +191,9 @@ export default function Hero() {
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-sm sm:max-w-md">
               
-              {/* Outer Cyan Cyber HUD Bracket Corners */}
-              <div className="hud-bracket p-3 rounded-2xl bg-obsidian-900/90 border border-cyan-electric/30 shadow-2xl relative">
+              <div className="hud-bracket p-3 rounded-2xl bg-charcoal border border-ember/30 shadow-2xl relative">
                 
-                {/* Image Container with Scanlines & Blueprint Markings */}
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-obsidian-950 border border-neutral-800 group">
+                <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-vantablack border border-neutral-800 group">
                   <img
                     src="./assets/me1.png"
                     alt="Augastin K Lazar — Electro Technical Officer Cadet & Embedded Systems Engineer"
@@ -208,32 +206,31 @@ export default function Hero() {
 
                   {/* Blueprint Coordinates & Status Tag */}
                   <div className="absolute top-3 left-3 right-3 flex justify-between items-center text-[10px] font-mono">
-                    <span className="px-2 py-0.5 rounded bg-obsidian-950/90 text-cyan-electric border border-cyan-electric/40">
+                    <span className="px-2 py-0.5 rounded bg-vantablack/90 text-ember border border-ember/40">
                       ID // ETO-32-MOL
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-obsidian-950/90 text-gold-warning border border-gold-warning/40">
+                    <span className="px-2 py-0.5 rounded bg-vantablack/90 text-signal border border-signal/40">
                       TARGET: LOCKED
                     </span>
                   </div>
 
                   {/* Bottom HUD Dossier Strip */}
-                  <div className="absolute bottom-3 inset-x-3 p-3 rounded-lg bg-obsidian-950/90 border border-white/10 backdrop-blur-md font-mono text-xs space-y-1">
+                  <div className="absolute bottom-3 inset-x-3 p-3 rounded-lg bg-charcoal/95 border border-white/10 backdrop-blur-md font-mono text-xs space-y-1">
                     <div className="flex items-center justify-between text-white font-bold">
                       <span>AUGASTIN K LAZAR</span>
-                      <span className="w-2 h-2 rounded-full bg-cyan-electric animate-pulse" />
+                      <span className="w-2 h-2 rounded-full bg-ember animate-pulse" />
                     </div>
-                    <div className="text-[10px] text-neutral-400 flex items-center justify-between border-t border-neutral-800 pt-1">
+                    <div className="text-[10px] text-steel flex items-center justify-between border-t border-neutral-800 pt-1">
                       <span>MITSUI O.S.K. LINES</span>
-                      <span className="text-cyan-electric">LNG FLEETS</span>
+                      <span className="text-ember font-bold">LNG FLEETS</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Technical Corner Degree Labels */}
-                <div className="absolute -bottom-2 -left-2 text-[9px] font-mono text-cyan-electric/50">
+                <div className="absolute -bottom-2 -left-2 text-[9px] font-mono text-ember/50">
                   SYS_RADAR.01
                 </div>
-                <div className="absolute -top-2 -right-2 text-[9px] font-mono text-gold-warning/50">
+                <div className="absolute -top-2 -right-2 text-[9px] font-mono text-signal/50">
                   REF: 6.6kV
                 </div>
               </div>

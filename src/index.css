@@ -8,76 +8,62 @@
   }
   
   html {
-    background-color: #0B0D17;
-    color: #E2E8F0;
+    background-color: #050505;
+    color: #9E9E9E;
     font-family: 'JetBrains Mono', monospace;
     overflow-x: hidden;
   }
 
   body {
-    background-color: #0B0D17;
-    color: #E2E8F0;
+    background-color: #050505;
+    color: #9E9E9E;
     overflow-x: hidden;
     position: relative;
   }
 
-  /* Custom tactical cyberpunk scrollbar */
+  /* Custom high-contrast highway scrollbar */
   ::-webkit-scrollbar {
     width: 5px;
   }
   ::-webkit-scrollbar-track {
-    background: #0B0D17;
+    background: #050505;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1E294B;
+    background: #242424;
     border-radius: 0px;
-    border: 1px solid #00F0FF;
+    border: 1px solid #FF6D00;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #00F0FF;
+    background: #FF6D00;
   }
 }
 
 @layer utilities {
-  /* Electric Glows */
-  .text-glow-cyan {
-    text-shadow: 0 0 16px rgba(0, 240, 255, 0.75), 0 0 32px rgba(0, 240, 255, 0.35);
+  /* Fiery Neon Ember & Signal Yellow Glows */
+  .text-glow-ember {
+    text-shadow: 0 0 16px rgba(255, 109, 0, 0.8), 0 0 32px rgba(255, 109, 0, 0.4);
   }
-  .text-glow-gold {
-    text-shadow: 0 0 16px rgba(255, 184, 0, 0.75), 0 0 32px rgba(255, 184, 0, 0.35);
-  }
-  .text-glow-coral {
-    text-shadow: 0 0 16px rgba(255, 51, 102, 0.75), 0 0 32px rgba(255, 51, 102, 0.35);
+  .text-glow-signal {
+    text-shadow: 0 0 16px rgba(255, 196, 0, 0.8), 0 0 32px rgba(255, 196, 0, 0.4);
   }
   
-  .box-glow-cyan {
-    box-shadow: 0 0 30px -5px rgba(0, 240, 255, 0.35), inset 0 0 15px rgba(0, 240, 255, 0.1);
+  .box-glow-ember {
+    box-shadow: 0 0 30px -5px rgba(255, 109, 0, 0.4), inset 0 0 15px rgba(255, 109, 0, 0.1);
   }
-  .box-glow-gold {
-    box-shadow: 0 0 30px -5px rgba(255, 184, 0, 0.35), inset 0 0 15px rgba(255, 184, 0, 0.1);
-  }
-  .box-glow-coral {
-    box-shadow: 0 0 30px -5px rgba(255, 51, 102, 0.35), inset 0 0 15px rgba(255, 51, 102, 0.1);
+  .box-glow-signal {
+    box-shadow: 0 0 30px -5px rgba(255, 196, 0, 0.4), inset 0 0 15px rgba(255, 196, 0, 0.1);
   }
 
-  /* Tactical Blueprint Card */
+  /* Matte Charcoal Terminal Card */
   .terminal-card {
-    background: rgba(15, 18, 34, 0.85);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(0, 240, 255, 0.18);
-    position: relative;
-  }
-  
-  .terminal-card-gold {
-    background: rgba(18, 20, 36, 0.88);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 184, 0, 0.25);
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 109, 0, 0.22);
     position: relative;
   }
 
-  /* Cut corner HUD tech styling */
+  /* Cut corner HUD tech styling in Neon Ember */
   .hud-bracket {
     position: relative;
   }
@@ -88,8 +74,8 @@
     left: -2px;
     width: 10px;
     height: 10px;
-    border-top: 2px solid #00F0FF;
-    border-left: 2px solid #00F0FF;
+    border-top: 2px solid #FF6D00;
+    border-left: 2px solid #FF6D00;
     pointer-events: none;
   }
   .hud-bracket::after {
@@ -99,33 +85,33 @@
     right: -2px;
     width: 10px;
     height: 10px;
-    border-bottom: 2px solid #00F0FF;
-    border-right: 2px solid #00F0FF;
+    border-bottom: 2px solid #FF6D00;
+    border-right: 2px solid #FF6D00;
     pointer-events: none;
   }
 }
 
-/* Fixed Blueprint SVG grid background */
+/* Empty highway night blueprint grid background on Vantablack */
 .bg-blueprint-grid {
   background-image: 
-    linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to right, rgba(0, 240, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 109, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 109, 0, 0.04) 1px, transparent 1px);
   background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
 }
 
-/* Subtle anime grain / noise overlay */
+/* Subtle highway grain / noise overlay */
 .bg-noise {
-  background-image: radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 0);
+  background-image: radial-gradient(rgba(255, 109, 0, 0.06) 1px, transparent 0);
   background-size: 28px 28px;
 }
 
 /* Scanline overlay effect */
 .scanlines {
   background: linear-gradient(
-    rgba(11, 13, 23, 0) 50%, 
-    rgba(0, 0, 0, 0.35) 50%
+    rgba(5, 5, 5, 0) 50%, 
+    rgba(0, 0, 0, 0.45) 50%
   );
   background-size: 100% 4px;
   pointer-events: none;

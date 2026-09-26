@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { Terminal, Send, Check, Copy, ArrowUp, Radio, MapPin, Clock, Github, Linkedin, Shield } from 'lucide-react';
+import { Send, ArrowUp, Radio, MapPin, Clock, Github, Linkedin, Shield } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { sound } from '../utils/audio';
 
 export default function TerminalFooter() {
   const [inputVal, setInputVal] = useState('');
   const [history, setHistory] = useState([
-    { type: 'system', text: 'INITIALIZING TACTICAL COMM TERMINAL v4.2...' },
+    { type: 'system', text: 'INITIALIZING HIGHWAY TACTICAL COMM TERMINAL v4.2...' },
     { type: 'system', text: 'SECURE LINK ESTABLISHED: Mitsui O.S.K. Lines LNG Fleet' },
     { type: 'info', text: 'Type "help" for a list of commands, or "send-msg" to transmit a dispatch.' },
   ]);
@@ -49,10 +49,8 @@ export default function TerminalFooter() {
     const trimmed = cmdText.trim();
     if (!trimmed) return;
 
-    // Add user command to history
     const newHistory = [...history, { type: 'user', text: trimmed }];
 
-    // If currently in multi-step dispatch mode
     if (dispatchStep === 'name') {
       setDispatchData((prev) => ({ ...prev, name: trimmed }));
       newHistory.push({ type: 'output', text: `Identity confirmed: ${trimmed}` });
@@ -84,15 +82,14 @@ export default function TerminalFooter() {
       setInputVal('');
 
       confetti({
-        particleCount: 70,
+        particleCount: 75,
         spread: 60,
         origin: { y: 0.85 },
-        colors: ['#00F0FF', '#FFB800', '#FF3366'],
+        colors: ['#FF6D00', '#FFC400', '#FFFFFF'],
       });
       return;
     }
 
-    // Normal command mode
     const cmd = trimmed.toLowerCase();
     switch (cmd) {
       case 'help':
@@ -186,7 +183,7 @@ export default function TerminalFooter() {
   };
 
   return (
-    <footer id="contact" className="relative py-24 bg-[#0B0D17] text-white border-t border-neutral-800 overflow-hidden font-mono">
+    <footer id="contact" className="relative py-24 bg-vantablack text-white border-t border-neutral-900 overflow-hidden font-mono">
       {/* Blueprint Grid Texture */}
       <div className="absolute inset-0 bg-blueprint-grid opacity-60 pointer-events-none" />
 
@@ -195,46 +192,46 @@ export default function TerminalFooter() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-neutral-800">
           <div>
-            <div className="flex items-center gap-2 text-cyan-electric font-mono text-xs tracking-widest uppercase mb-3">
-              <span className="w-8 h-[1px] bg-cyan-electric" />
+            <div className="flex items-center gap-2 text-ember font-mono text-xs tracking-widest uppercase mb-3">
+              <span className="w-8 h-[1px] bg-ember" />
               <span>06 // COMMAND PROMPT & INITIATE COMM</span>
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight">
+            <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
               Tactical Terminal <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-electric via-gold-warning to-coral-neon text-glow-cyan">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-ember via-signal to-white text-glow-ember">
                 Contact & Telemetry
               </span>
             </h2>
           </div>
 
-          <div className="mt-4 md:mt-0 font-mono text-xs space-y-1.5 text-neutral-400">
-            <div className="flex items-center gap-2 text-cyan-electric">
-              <MapPin className="w-3.5 h-3.5 text-cyan-electric" />
+          <div className="mt-4 md:mt-0 font-mono text-xs space-y-1.5 text-steel">
+            <div className="flex items-center gap-2 text-ember">
+              <MapPin className="w-3.5 h-3.5 text-ember" />
               <span>THRISSUR, KERALA [10.5276° N, 76.2144° E]</span>
             </div>
-            <div className="flex items-center gap-2 text-neutral-300">
-              <Clock className="w-3.5 h-3.5 text-gold-warning" />
+            <div className="flex items-center gap-2 text-steel-light">
+              <Clock className="w-3.5 h-3.5 text-signal" />
               <span>LOCAL TIME (IST): {istTime || 'SYNCING...'}</span>
             </div>
           </div>
         </div>
 
-        {/* Tactical Terminal Console Box */}
-        <div className="hud-bracket rounded-2xl bg-obsidian-900 border border-cyan-electric/40 shadow-2xl overflow-hidden mb-12">
+        {/* Tactical Terminal Console Box in Matte Charcoal */}
+        <div className="hud-bracket rounded-2xl bg-charcoal border border-ember/35 shadow-2xl overflow-hidden mb-12">
           
           {/* Terminal Title Bar */}
-          <div className="flex items-center justify-between px-5 py-3 bg-obsidian-950 border-b border-neutral-800 text-xs">
+          <div className="flex items-center justify-between px-5 py-3 bg-vantablack border-b border-neutral-800 text-xs">
             <div className="flex items-center gap-2.5">
-              <span className="w-3 h-3 rounded-full bg-coral-neon/80" />
-              <span className="w-3 h-3 rounded-full bg-gold-warning/80" />
-              <span className="w-3 h-3 rounded-full bg-cyan-electric/80" />
-              <span className="ml-3 text-neutral-400 font-bold">
+              <span className="w-3 h-3 rounded-full bg-ember/80" />
+              <span className="w-3 h-3 rounded-full bg-signal/80" />
+              <span className="w-3 h-3 rounded-full bg-neutral-600" />
+              <span className="ml-3 text-steel font-bold">
                 augastin@lngc-terminal:~
               </span>
             </div>
 
-            <div className="hidden sm:flex items-center gap-3 text-[11px] text-neutral-500">
-              <span className="flex items-center gap-1.5 text-cyan-electric">
+            <div className="hidden sm:flex items-center gap-3 text-[11px] text-steel-dark">
+              <span className="flex items-center gap-1.5 text-ember font-bold">
                 <Radio className="w-3 h-3 animate-pulse" />
                 SSH // 2222
               </span>
@@ -244,15 +241,15 @@ export default function TerminalFooter() {
           </div>
 
           {/* Quick-Click Command Buttons */}
-          <div className="px-5 py-2.5 bg-obsidian-950/60 border-b border-neutral-800/80 flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-[10px] text-neutral-500 uppercase tracking-wider mr-1">
+          <div className="px-5 py-2.5 bg-vantablack/70 border-b border-neutral-800/80 flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-[10px] text-steel-dark uppercase tracking-wider mr-1">
               QUICK COMMANDS:
             </span>
             {['help', 'whoami', 'send-msg', 'status', 'copy-email', 'clear'].map((cmd) => (
               <button
                 key={cmd}
                 onClick={() => handleCommand(cmd)}
-                className="px-2.5 py-1 rounded bg-obsidian-900 border border-neutral-700/80 hover:border-cyan-electric hover:text-cyan-electric text-[11px] transition-colors"
+                className="px-2.5 py-1 rounded bg-charcoal border border-neutral-700/80 hover:border-ember hover:text-ember text-[11px] text-steel-light transition-colors"
                 data-cursor="EXEC"
               >
                 ${cmd}
@@ -262,14 +259,14 @@ export default function TerminalFooter() {
 
           {/* Terminal Console Output Scroll Area */}
           <div
-            className="p-6 h-[320px] overflow-y-auto space-y-3 font-mono text-xs sm:text-sm bg-obsidian-900/90 text-neutral-300"
+            className="p-6 h-[320px] overflow-y-auto space-y-3 font-mono text-xs sm:text-sm bg-charcoal text-steel-light"
             onClick={() => inputRef.current?.focus()}
           >
             {history.map((line, idx) => {
               if (line.type === 'user') {
                 return (
-                  <div key={idx} className="flex items-center gap-2 text-cyan-electric">
-                    <span className="text-gold-warning font-bold">augastin@terminal:~$</span>
+                  <div key={idx} className="flex items-center gap-2 text-ember">
+                    <span className="text-signal font-bold">augastin@terminal:~$</span>
                     <span className="text-white font-bold">{line.text}</span>
                   </div>
                 );
@@ -277,7 +274,7 @@ export default function TerminalFooter() {
 
               if (line.type === 'prompt') {
                 return (
-                  <div key={idx} className="text-gold-warning font-bold flex items-center gap-2">
+                  <div key={idx} className="text-signal font-bold flex items-center gap-2">
                     <span>[PROMPT]</span>
                     <span>{line.text}</span>
                   </div>
@@ -286,7 +283,7 @@ export default function TerminalFooter() {
 
               if (line.type === 'success') {
                 return (
-                  <div key={idx} className="text-cyan-electric font-semibold">
+                  <div key={idx} className="text-signal font-bold">
                     {line.text}
                   </div>
                 );
@@ -294,7 +291,7 @@ export default function TerminalFooter() {
 
               if (line.type === 'error') {
                 return (
-                  <div key={idx} className="text-coral-neon">
+                  <div key={idx} className="text-ember font-semibold">
                     {line.text}
                   </div>
                 );
@@ -302,14 +299,14 @@ export default function TerminalFooter() {
 
               if (line.type === 'system') {
                 return (
-                  <div key={idx} className="text-neutral-500 text-[11px]">
+                  <div key={idx} className="text-steel-dark text-[11px]">
                     {line.text}
                   </div>
                 );
               }
 
               return (
-                <div key={idx} className="whitespace-pre-wrap leading-relaxed text-neutral-300">
+                <div key={idx} className="whitespace-pre-wrap leading-relaxed text-steel-light">
                   {line.text}
                 </div>
               );
@@ -318,8 +315,8 @@ export default function TerminalFooter() {
           </div>
 
           {/* Terminal Input Line */}
-          <div className="flex items-center gap-2 px-5 py-4 bg-obsidian-950 border-t border-neutral-800 text-xs sm:text-sm">
-            <span className="text-gold-warning font-bold whitespace-nowrap">
+          <div className="flex items-center gap-2 px-5 py-4 bg-vantablack border-t border-neutral-800 text-xs sm:text-sm">
+            <span className="text-signal font-bold whitespace-nowrap">
               {dispatchStep ? `[INPUT:${dispatchStep.toUpperCase()}] >` : 'augastin@terminal:~$'}
             </span>
             <input
@@ -337,12 +334,12 @@ export default function TerminalFooter() {
                   ? 'Type your message and hit Enter...'
                   : 'Type command (e.g. "send-msg", "help") and press Enter...'
               }
-              className="w-full bg-transparent border-none outline-none text-cyan-electric font-mono placeholder:text-neutral-600 caret-cyan-electric"
+              className="w-full bg-transparent border-none outline-none text-ember font-mono placeholder:text-steel-dark caret-ember"
               autoFocus
             />
             <button
               onClick={() => handleCommand(inputVal)}
-              className="px-3.5 py-1.5 rounded bg-cyan-electric text-obsidian-950 font-bold hover:scale-105 transition-all shrink-0 flex items-center gap-1.5"
+              className="px-3.5 py-1.5 rounded bg-ember text-vantablack font-bold hover:scale-105 transition-all shrink-0 flex items-center gap-1.5 shadow-[0_0_12px_rgba(255,109,0,0.4)]"
               data-cursor="RUN"
             >
               <Send className="w-3.5 h-3.5" />
@@ -353,13 +350,13 @@ export default function TerminalFooter() {
         </div>
 
         {/* Global Links, Cadre Affiliation & Scroll to Top */}
-        <div className="pt-8 border-t border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-neutral-400">
+        <div className="pt-8 border-t border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-steel">
           
           <div className="flex items-center gap-3">
-            <Shield className="w-4 h-4 text-cyan-electric" />
+            <Shield className="w-4 h-4 text-ember" />
             <div>
               <div className="text-white font-bold">AUGASTIN K LAZAR</div>
-              <div className="text-[10px] text-neutral-500">MITSUI O.S.K. LINES CADET &bull; THRISSUR, KERALA</div>
+              <div className="text-[10px] text-steel-dark">MITSUI O.S.K. LINES CADET &bull; THRISSUR, KERALA</div>
             </div>
           </div>
 
@@ -369,7 +366,7 @@ export default function TerminalFooter() {
               href="https://github.com/augastinklazar"
               target="_blank"
               rel="noreferrer"
-              className="p-2 rounded bg-obsidian-900 border border-neutral-800 hover:border-cyan-electric text-neutral-300 hover:text-cyan-electric transition-colors"
+              className="p-2 rounded bg-charcoal border border-neutral-800 hover:border-ember text-steel-light hover:text-ember transition-colors"
               data-cursor="GITHUB"
             >
               <Github className="w-4 h-4" />
@@ -378,13 +375,13 @@ export default function TerminalFooter() {
               href="https://linkedin.com"
               target="_blank"
               rel="noreferrer"
-              className="p-2 rounded bg-obsidian-900 border border-neutral-800 hover:border-cyan-electric text-neutral-300 hover:text-cyan-electric transition-colors"
+              className="p-2 rounded bg-charcoal border border-neutral-800 hover:border-ember text-steel-light hover:text-ember transition-colors"
               data-cursor="LINKEDIN"
             >
               <Linkedin className="w-4 h-4" />
             </a>
-            <span className="text-neutral-600">|</span>
-            <span className="text-[11px] text-neutral-500">
+            <span className="text-neutral-800">|</span>
+            <span className="text-[11px] text-steel-dark">
               &copy; {new Date().getFullYear()} ALL SYSTEMS ACTIVE
             </span>
           </div>
@@ -392,7 +389,7 @@ export default function TerminalFooter() {
           {/* Back to top */}
           <button
             onClick={scrollToTop}
-            className="p-2.5 rounded bg-obsidian-900 border border-neutral-700 hover:border-cyan-electric hover:text-cyan-electric transition-all"
+            className="p-2.5 rounded bg-charcoal border border-neutral-700 hover:border-ember hover:text-ember transition-all"
             data-cursor="TOP"
           >
             <ArrowUp className="w-4 h-4" />

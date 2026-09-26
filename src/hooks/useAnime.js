@@ -127,7 +127,7 @@ export function useSvgPathDraw(pathRef, options = {}) {
 /**
  * Typewriter effect for terminal headers and telemetry subtitles
  */
-export function useTypewriter(text, speed = 40, delay = 300) {
+export function useTypewriter(text, speed = 35, delay = 300) {
   const [typed, setTyped] = useState('');
 
   useEffect(() => {

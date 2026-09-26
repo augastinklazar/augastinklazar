@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ExternalLink, Github, ArrowUpRight, Cpu, Radio, ShieldAlert, Sparkles, X, Layers, Terminal } from 'lucide-react';
+import { Github, ArrowUpRight, Cpu, Radio, ShieldAlert, Sparkles, X, Layers } from 'lucide-react';
 import { sound } from '../utils/audio';
 
 export default function Projects() {
@@ -24,7 +24,7 @@ export default function Projects() {
       metrics: 'Zero-latency WebSockets · 6.6 kV Switchboard Logic · 4-Generator Load Sharing',
       tags: ['Maritime Automation', 'React', 'Node.js', 'SCADA Emulation', 'WebSockets'],
       icon: ShieldAlert,
-      accent: 'cyan',
+      accent: 'ember',
       github: 'https://github.com/augastinklazar/augastinklazar',
       live: 'https://augastinklazar.github.io/augastinklazar/',
       details: {
@@ -43,7 +43,7 @@ export default function Projects() {
       metrics: '1kHz Loop Frequency · Kalman IMU Fusion · 0.02° Precision',
       tags: ['STM32', 'C/C++', 'FreeRTOS', 'Robotics', 'Hardware PID'],
       icon: Cpu,
-      accent: 'gold',
+      accent: 'signal',
       github: 'https://github.com/augastinklazar/augastinklazar',
       live: 'https://augastinklazar.github.io/augastinklazar/',
       details: {
@@ -62,7 +62,7 @@ export default function Projects() {
       metrics: '3km Line-of-Sight · Deep Sleep <15µA · Industrial Enclosure',
       tags: ['ESP32', 'LoRa', 'Embedded C', 'IoT', 'MQTT'],
       icon: Radio,
-      accent: 'coral',
+      accent: 'ember',
       github: 'https://github.com/augastinklazar/augastinklazar',
       live: 'https://augastinklazar.github.io/augastinklazar/',
       details: {
@@ -81,7 +81,7 @@ export default function Projects() {
       metrics: '60 FPS WebGL · PBR Materials · Interactive Hotspots',
       tags: ['Three.js', 'React', 'WebGL', 'GSAP', 'GLSL Shaders'],
       icon: Sparkles,
-      accent: 'cyan',
+      accent: 'signal',
       github: 'https://github.com/augastinklazar/augastinklazar',
       live: 'https://augastinklazar.github.io/augastinklazar/',
       details: {
@@ -100,7 +100,7 @@ export default function Projects() {
       metrics: '70% Faster Content Export · Custom SVG Animator · FFmpeg Core',
       tags: ['Node.js', 'Python', 'FFmpeg', 'Anime.js', 'Content Ops'],
       icon: Layers,
-      accent: 'gold',
+      accent: 'ember',
       github: 'https://github.com/augastinklazar/augastinklazar',
       live: 'https://augastinklazar.github.io/augastinklazar/',
       details: {
@@ -116,7 +116,7 @@ export default function Projects() {
     : projectList.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="projects" className="relative py-28 bg-[#0B0D17] text-white overflow-hidden">
+    <section id="projects" className="relative py-28 bg-vantablack text-white overflow-hidden">
       {/* Blueprint Grid Texture */}
       <div className="absolute inset-0 bg-blueprint-grid opacity-60 pointer-events-none" />
 
@@ -125,13 +125,13 @@ export default function Projects() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-neutral-800">
           <div>
-            <div className="flex items-center gap-2 text-cyan-electric font-mono text-xs tracking-widest uppercase mb-3">
-              <span className="w-8 h-[1px] bg-cyan-electric" />
+            <div className="flex items-center gap-2 text-ember font-mono text-xs tracking-widest uppercase mb-3">
+              <span className="w-8 h-[1px] bg-ember" />
               <span>05 // FEATURED ENGINEERING DOSSIERS</span>
             </div>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
               Tactical Systems & <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-electric via-gold-warning to-coral-neon text-glow-cyan">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-ember via-signal to-white text-glow-ember">
                 Silicon Prototypes
               </span>
             </h2>
@@ -149,8 +149,8 @@ export default function Projects() {
                 onMouseEnter={() => sound.playHover()}
                 className={`px-4 py-2 rounded font-mono text-xs tracking-wider uppercase transition-all duration-300 border ${
                   activeFilter === cat.id
-                    ? 'bg-cyan-electric text-obsidian-950 font-bold border-cyan-electric box-glow-cyan'
-                    : 'bg-obsidian-900 text-neutral-400 hover:text-white border-neutral-800'
+                    ? 'bg-ember text-vantablack font-bold border-ember box-glow-ember shadow-[0_0_15px_rgba(255,109,0,0.4)]'
+                    : 'bg-charcoal text-steel hover:text-white border-neutral-800'
                 }`}
                 data-cursor="FILTER"
               >
@@ -160,7 +160,7 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid in Matte Charcoal Panels */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((project) => {
             const Icon = project.icon;
@@ -172,36 +172,36 @@ export default function Projects() {
                   setSelectedProject(project);
                 }}
                 onMouseEnter={() => sound.playHover()}
-                className="hud-bracket group relative flex flex-col justify-between p-7 rounded-2xl bg-obsidian-900/90 border border-neutral-800 hover:border-cyan-electric/60 transition-all duration-300 hover:-translate-y-1.5 hover:box-glow-cyan cursor-pointer"
+                className="hud-bracket group relative flex flex-col justify-between p-7 rounded-2xl bg-charcoal border border-neutral-800 hover:border-ember/60 transition-all duration-300 hover:-translate-y-1.5 hover:box-glow-ember cursor-pointer"
                 data-cursor="INSPECT"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4 font-mono text-xs">
-                    <span className="text-cyan-electric font-bold">{project.code}</span>
-                    <span className="p-1.5 rounded bg-obsidian-950 border border-neutral-800 text-neutral-400 group-hover:text-cyan-electric group-hover:border-cyan-electric/40 transition-colors">
+                    <span className="text-ember font-bold">{project.code}</span>
+                    <span className="p-1.5 rounded bg-vantablack border border-neutral-800 text-steel group-hover:text-ember group-hover:border-ember/40 transition-colors">
                       <ArrowUpRight className="w-4 h-4" />
                     </span>
                   </div>
 
-                  <div className="w-10 h-10 rounded-lg bg-cyan-electric/10 border border-cyan-electric/30 flex items-center justify-center text-cyan-electric mb-4 group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-vantablack border border-ember/30 flex items-center justify-center text-ember mb-4 group-hover:scale-110 transition-transform">
                     <Icon className="w-5 h-5" />
                   </div>
 
-                  <h3 className="font-display font-bold text-xl text-white mb-2 group-hover:text-cyan-electric transition-colors leading-snug">
+                  <h3 className="font-display font-bold text-xl text-white mb-2 group-hover:text-ember transition-colors leading-snug">
                     {project.title}
                   </h3>
 
-                  <div className="font-mono text-[11px] text-gold-warning tracking-wider uppercase mb-3">
+                  <div className="font-mono text-[11px] text-signal tracking-wider uppercase mb-3 font-semibold">
                     {project.subtitle}
                   </div>
 
-                  <p className="text-neutral-400 text-xs sm:text-sm font-sans leading-relaxed mb-6">
+                  <p className="text-steel text-xs sm:text-sm font-sans leading-relaxed mb-6">
                     {project.description}
                   </p>
                 </div>
 
                 <div>
-                  <div className="p-2.5 rounded bg-obsidian-950 border border-neutral-800/80 font-mono text-[10px] text-cyan-electric tracking-wide mb-4">
+                  <div className="p-2.5 rounded bg-vantablack border border-neutral-800/80 font-mono text-[10px] text-ember tracking-wide mb-4">
                     {project.metrics}
                   </div>
 
@@ -209,7 +209,7 @@ export default function Projects() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-0.5 rounded bg-obsidian-950 border border-neutral-800 text-[10px] font-mono text-neutral-400"
+                        className="px-2 py-0.5 rounded bg-vantablack border border-neutral-800 text-[10px] font-mono text-steel-light"
                       >
                         {tag}
                       </span>
@@ -225,14 +225,14 @@ export default function Projects() {
 
       {/* Project Detail Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-obsidian-950/90 backdrop-blur-md animate-fadeIn">
-          <div className="hud-bracket relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-obsidian-900 p-6 sm:p-8 border border-cyan-electric/50 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-vantablack/90 backdrop-blur-md animate-fadeIn">
+          <div className="hud-bracket relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-charcoal p-6 sm:p-8 border border-ember/50 shadow-2xl">
             <button
               onClick={() => {
                 sound.playClick();
                 setSelectedProject(null);
               }}
-              className="absolute top-6 right-6 p-2 rounded-lg bg-obsidian-950 border border-neutral-700 text-neutral-300 hover:text-cyan-electric hover:border-cyan-electric transition-colors"
+              className="absolute top-6 right-6 p-2 rounded-lg bg-vantablack border border-neutral-700 text-steel hover:text-ember hover:border-ember transition-colors"
               aria-label="Close modal"
               data-cursor="CLOSE"
             >
@@ -241,29 +241,29 @@ export default function Projects() {
 
             <div className="space-y-6">
               <div>
-                <span className="font-mono text-xs text-cyan-electric uppercase tracking-widest">
+                <span className="font-mono text-xs text-ember uppercase tracking-widest font-bold">
                   DOSSIER // {selectedProject.code}
                 </span>
                 <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
                   {selectedProject.title}
                 </h3>
-                <p className="font-mono text-xs text-gold-warning tracking-wider mt-1">
+                <p className="font-mono text-xs text-signal tracking-wider mt-1 font-semibold">
                   {selectedProject.subtitle}
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-obsidian-950 border border-neutral-800 font-mono text-xs text-neutral-300 leading-relaxed">
-                <div className="text-cyan-electric font-bold mb-1 uppercase tracking-wider text-[11px]">System Architecture</div>
+              <div className="p-4 rounded-xl bg-vantablack border border-neutral-800 font-mono text-xs text-steel-light leading-relaxed">
+                <div className="text-ember font-bold mb-1 uppercase tracking-wider text-[11px]">System Architecture</div>
                 {selectedProject.details.architecture}
               </div>
 
-              <div className="p-4 rounded-xl bg-obsidian-950 border border-neutral-800 font-mono text-xs text-neutral-300 leading-relaxed">
-                <div className="text-gold-warning font-bold mb-1 uppercase tracking-wider text-[11px]">Hardware & Specifications</div>
+              <div className="p-4 rounded-xl bg-vantablack border border-neutral-800 font-mono text-xs text-steel-light leading-relaxed">
+                <div className="text-signal font-bold mb-1 uppercase tracking-wider text-[11px]">Hardware & Specifications</div>
                 {selectedProject.details.hardwareSpecs}
               </div>
 
-              <div className="p-4 rounded-xl bg-obsidian-950 border border-neutral-800 font-mono text-xs text-neutral-300 leading-relaxed">
-                <div className="text-coral-neon font-bold mb-1 uppercase tracking-wider text-[11px]">Practical Engineering Significance</div>
+              <div className="p-4 rounded-xl bg-vantablack border border-neutral-800 font-mono text-xs text-steel-light leading-relaxed">
+                <div className="text-ember font-bold mb-1 uppercase tracking-wider text-[11px]">Practical Engineering Significance</div>
                 {selectedProject.details.significance}
               </div>
 
@@ -271,7 +271,7 @@ export default function Projects() {
                 {selectedProject.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 rounded-full bg-cyan-electric/10 border border-cyan-electric/30 text-xs font-mono text-cyan-electric"
+                    className="px-3 py-1 rounded-full bg-vantablack border border-ember/30 text-xs font-mono text-ember"
                   >
                     {tag}
                   </span>
@@ -283,14 +283,14 @@ export default function Projects() {
                   href={selectedProject.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-neutral-800 hover:bg-cyan-electric hover:text-obsidian-950 text-white text-xs font-mono uppercase tracking-wider transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-neutral-800 hover:bg-ember hover:text-vantablack text-white text-xs font-mono uppercase tracking-wider transition-all font-bold"
                 >
                   <Github className="w-4 h-4" />
                   <span>View Repository</span>
                 </a>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="px-5 py-2.5 rounded-lg border border-neutral-700 text-neutral-300 hover:text-white text-xs font-mono uppercase tracking-wider transition-all"
+                  className="px-5 py-2.5 rounded-lg border border-neutral-700 text-steel hover:text-white text-xs font-mono uppercase tracking-wider transition-all"
                 >
                   Close Specification
                 </button>

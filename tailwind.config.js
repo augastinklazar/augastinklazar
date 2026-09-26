@@ -8,59 +8,61 @@ export default {
   theme: {
     extend: {
       colors: {
-        obsidian: {
-          950: '#0B0D17', // Nautical Cyberpunk primary dark background
-          900: '#0F1222',
-          850: '#14182E',
-          800: '#1A203D',
-          700: '#252D54',
+        // Highway Night & Neon Ember Palette
+        vantablack: '#050505', // Base / Background
+        charcoal: {
+          DEFAULT: '#141414', // Surface / Panels
+          light: '#1F1F1F',
+          border: '#292929',
         },
+        ember: {
+          DEFAULT: '#FF6D00', // Primary Glow / Interactions / Cursor
+          hover: '#FF851A',
+          glow: 'rgba(255, 109, 0, 0.4)',
+        },
+        signal: {
+          DEFAULT: '#FFC400', // Secondary Accent / Waypoints / Alerts
+          light: '#FFD54F',
+          glow: 'rgba(255, 196, 0, 0.4)',
+        },
+        steel: {
+          DEFAULT: '#9E9E9E', // Body Text (Neutral Steel)
+          light: '#BDBDBD',
+          dark: '#757575',
+        },
+        // Maintain semantic aliases
         cyan: {
-          electric: '#00F0FF', // Interaction accent
-          glow: 'rgba(0, 240, 255, 0.35)',
+          electric: '#FF6D00',
         },
         gold: {
-          warning: '#FFB800', // Warning / Highlights
-          light: '#FFE082',
-          DEFAULT: '#FFB800',
-          rich: '#E6A600',
-          glow: 'rgba(255, 184, 0, 0.35)',
+          warning: '#FFC400',
+          DEFAULT: '#FFC400',
         },
         coral: {
-          neon: '#FF3366', // Critical / Alert
-          glow: 'rgba(255, 51, 102, 0.4)',
+          neon: '#FF6D00',
         },
-        marine: {
-          cyan: '#00F0FF',
-          deep: '#060B14',
-          grid: '#18223B',
+        obsidian: {
+          950: '#050505',
+          900: '#141414',
+          850: '#1A1A1A',
+          800: '#242424',
+          700: '#2E2E2E',
         },
       },
       fontFamily: {
         display: ['Syne', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
         sans: ['Plus Jakarta Sans', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
       },
       animation: {
         'spin-slow': 'spin 24s linear infinite',
-        'spin-reverse': 'spin-reverse 20s linear infinite',
-        'radar-sweep': 'radar-sweep 4s linear infinite',
-        'pulse-glow': 'pulse-glow 2.5s ease-in-out infinite',
+        'radar-sweep': 'radar-sweep 3.5s linear infinite',
         'blink': 'blink 1s step-start infinite',
       },
       keyframes: {
-        'spin-reverse': {
-          from: { transform: 'rotate(360deg)' },
-          to: { transform: 'rotate(0deg)' },
-        },
         'radar-sweep': {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
-        },
-        'pulse-glow': {
-          '0%, 100%': { opacity: '0.4' },
-          '50%': { opacity: '0.9' },
         },
         'blink': {
           '0%, 50%': { opacity: '1' },
