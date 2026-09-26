@@ -49,7 +49,7 @@ export default function Hero() {
   const lastName = 'K LAZAR';
 
   return (
-    <section className="relative min-h-screen pt-28 pb-20 flex items-center justify-center overflow-hidden bg-vantablack">
+    <section id="hero" className="relative min-h-screen pt-28 pb-20 flex items-center justify-center overflow-hidden bg-vantablack">
       
       {/* Background Blueprint Grid & Two.js Vector Canvas */}
       <div className="absolute inset-0 bg-blueprint-grid opacity-70 pointer-events-none" />

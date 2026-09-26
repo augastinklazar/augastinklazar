@@ -19,8 +19,8 @@ export default function HardwareTextures() {
         <rect width="100%" height="100%" filter="url(#crt-noise)" />
       </svg>
 
-      {/* 2. Hardware scanline overlay simulating hardware CRT with mix-blend-mode: overlay */}
-      <div className="hardware-scanlines fixed inset-0 z-[9989]" />
+      {/* 2. Hardware scanline overlay simulating hardware CRT with mix-blend-mode: overlay - strictly pointer-events-none */}
+      <div className="hardware-scanlines pointer-events-none fixed inset-0 z-[9989]" />
     </>
   );
 }

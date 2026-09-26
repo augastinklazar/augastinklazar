@@ -15,8 +15,9 @@ export default function TerminalFooter() {
   const [istTime, setIstTime] = useState('');
   const [copied, setCopied] = useState(false);
   
-  const bottomRef = useRef(null);
+  const consoleScrollRef = useRef(null);
   const inputRef = useRef(null);
+  const isFirstRender = useRef(true);
 
   const directEmail = 'augastin.lazar@example.com';
 
@@ -38,9 +39,14 @@ export default function TerminalFooter() {
     return () => clearInterval(interval);
   }, []);
 
+  // Scroll inner terminal console output ONLY when user interacts (never scroll entire window on mount)
   useEffect(() => {
-    if (bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (consoleScrollRef.current) {
+      consoleScrollRef.current.scrollTop = consoleScrollRef.current.scrollHeight;
     }
   }, [history]);
 
@@ -184,6 +190,9 @@ export default function TerminalFooter() {
 
   return (
     <footer id="contact" className="relative py-24 bg-vantablack text-white border-t border-neutral-900 overflow-hidden font-mono">
+      {/* Anchor Target for #terminal navigation */}
+      <div id="terminal" className="absolute -top-20 pointer-events-none" />
+
       {/* Blueprint Grid Texture */}
       <div className="absolute inset-0 bg-blueprint-grid opacity-60 pointer-events-none" />
 
@@ -259,8 +268,9 @@ export default function TerminalFooter() {
 
           {/* Terminal Console Output Scroll Area */}
           <div
+            ref={consoleScrollRef}
             className="p-6 h-[320px] overflow-y-auto space-y-3 font-mono text-xs sm:text-sm bg-charcoal text-steel-light"
-            onClick={() => inputRef.current?.focus()}
+            onClick={() => inputRef.current?.focus({ preventScroll: true })}
           >
             {history.map((line, idx) => {
               if (line.type === 'user') {
@@ -311,7 +321,6 @@ export default function TerminalFooter() {
                 </div>
               );
             })}
-            <div ref={bottomRef} />
           </div>
 
           {/* Terminal Input Line */}
@@ -335,7 +344,6 @@ export default function TerminalFooter() {
                   : 'Type command (e.g. "send-msg", "help") and press Enter...'
               }
               className="w-full bg-transparent border-none outline-none text-ember font-mono placeholder:text-steel-dark caret-ember"
-              autoFocus
             />
             <button
               onClick={() => handleCommand(inputVal)}

@@ -14,6 +14,12 @@ import TerminalFooter from './components/TerminalFooter';
 
 export default function App() {
   useEffect(() => {
+    // Force browser to start at Hero section on load/reload
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
     // Ultra-fast, instantaneous, 60fps Lenis smooth scroll
     const lenis = new Lenis({
       lerp: 0.18, // Immediate 1-frame response without input lag
@@ -23,6 +29,9 @@ export default function App() {
       infinite: false,
     });
 
+    window.lenis = lenis;
+    lenis.scrollTo(0, { immediate: true });
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -30,9 +39,33 @@ export default function App() {
 
     const animId = requestAnimationFrame(raf);
 
+    // Global smooth click interceptor for all hash links (#journey, #skills-hud, #terminal, etc.)
+    const handleAnchorClick = (e) => {
+      const anchor = e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+      const href = anchor.getAttribute('href');
+      if (!href) return;
+
+      if (href === '#' || href === '#hero') {
+        e.preventDefault();
+        lenis.scrollTo(0, { duration: 1.0 });
+        return;
+      }
+
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: -70, duration: 1.2 });
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+
     return () => {
       cancelAnimationFrame(animId);
+      document.removeEventListener('click', handleAnchorClick);
       lenis.destroy();
+      window.lenis = null;
     };
   }, []);
 
