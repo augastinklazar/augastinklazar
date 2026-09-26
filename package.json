@@ -10,6 +10,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "animejs": "^3.2.2",
     "canvas-confetti": "^1.9.3",
     "clsx": "^2.1.1",
@@ -18,7 +19,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.3.0",
-    "three": "^0.165.0"
+    "three": "^0.165.0",
+    "two.js": "^0.8.24"
   },
   "devDependencies": {
     "@types/animejs": "^3.1.12",

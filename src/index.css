@@ -8,71 +8,135 @@
   }
   
   html {
-    scroll-behavior: smooth;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
-
-  body {
-    background-color: #060608;
-    color: #e2e8f0;
+    background-color: #0B0D17;
+    color: #E2E8F0;
+    font-family: 'JetBrains Mono', monospace;
     overflow-x: hidden;
   }
 
-  /* Custom luxury scrollbar */
+  body {
+    background-color: #0B0D17;
+    color: #E2E8F0;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Custom tactical cyberpunk scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a0a0f;
+    background: #0B0D17;
   }
   ::-webkit-scrollbar-thumb {
-    background: #232332;
-    border-radius: 3px;
+    background: #1E294B;
+    border-radius: 0px;
+    border: 1px solid #00F0FF;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #e5c158;
+    background: #00F0FF;
   }
 }
 
 @layer utilities {
-  .text-glow-gold {
-    text-shadow: 0 0 24px rgba(229, 193, 88, 0.45);
+  /* Electric Glows */
+  .text-glow-cyan {
+    text-shadow: 0 0 16px rgba(0, 240, 255, 0.75), 0 0 32px rgba(0, 240, 255, 0.35);
   }
-  .text-glow-amber {
-    text-shadow: 0 0 24px rgba(255, 157, 66, 0.45);
+  .text-glow-gold {
+    text-shadow: 0 0 16px rgba(255, 184, 0, 0.75), 0 0 32px rgba(255, 184, 0, 0.35);
+  }
+  .text-glow-coral {
+    text-shadow: 0 0 16px rgba(255, 51, 102, 0.75), 0 0 32px rgba(255, 51, 102, 0.35);
+  }
+  
+  .box-glow-cyan {
+    box-shadow: 0 0 30px -5px rgba(0, 240, 255, 0.35), inset 0 0 15px rgba(0, 240, 255, 0.1);
   }
   .box-glow-gold {
-    box-shadow: 0 0 40px -10px rgba(229, 193, 88, 0.25);
+    box-shadow: 0 0 30px -5px rgba(255, 184, 0, 0.35), inset 0 0 15px rgba(255, 184, 0, 0.1);
   }
-  .box-glow-amber {
-    box-shadow: 0 0 40px -10px rgba(255, 157, 66, 0.25);
+  .box-glow-coral {
+    box-shadow: 0 0 30px -5px rgba(255, 51, 102, 0.35), inset 0 0 15px rgba(255, 51, 102, 0.1);
   }
-  .glass-card {
-    background: rgba(16, 16, 23, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* Tactical Blueprint Card */
+  .terminal-card {
+    background: rgba(15, 18, 34, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(0, 240, 255, 0.18);
+    position: relative;
   }
-  .glass-card-gold {
-    background: rgba(18, 17, 24, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(229, 193, 88, 0.18);
+  
+  .terminal-card-gold {
+    background: rgba(18, 20, 36, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 184, 0, 0.25);
+    position: relative;
+  }
+
+  /* Cut corner HUD tech styling */
+  .hud-bracket {
+    position: relative;
+  }
+  .hud-bracket::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid #00F0FF;
+    border-left: 2px solid #00F0FF;
+    pointer-events: none;
+  }
+  .hud-bracket::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid #00F0FF;
+    border-right: 2px solid #00F0FF;
+    pointer-events: none;
   }
 }
 
-/* Subtle luxury noise overlay */
+/* Fixed Blueprint SVG grid background */
+.bg-blueprint-grid {
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to right, rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+}
+
+/* Subtle anime grain / noise overlay */
 .bg-noise {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 0);
+  background-size: 28px 28px;
 }
 
-/* Hide default cursor on desktop when custom cursor is active */
+/* Scanline overlay effect */
+.scanlines {
+  background: linear-gradient(
+    rgba(11, 13, 23, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* Hide default cursor on fine pointer devices */
 @media (hover: hover) and (pointer: fine) {
   body {
     cursor: none;
   }
-  a, button, input, textarea, [role="button"] {
+  a, button, input, textarea, select, [role="button"], [data-cursor] {
     cursor: none;
   }
 }

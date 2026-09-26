@@ -1,227 +1,248 @@
 import { useEffect, useRef } from 'react';
-import { ShieldCheck, ArrowDownRight, Terminal, Anchor, Sparkles } from 'lucide-react';
-import gsap from 'gsap';
+import { Shield, Terminal, ArrowDownRight, Compass, Cpu, Radio, Zap } from 'lucide-react';
+import anime from 'animejs';
+import HeroTwoWireframe from './canvas/HeroTwoWireframe';
+import { useTypewriter } from '../hooks/useAnime';
 import { sound } from '../utils/audio';
 
 export default function Hero() {
-  const heroRef = useRef(null);
-  const cardRef = useRef(null);
+  const nameContainerRef = useRef(null);
+  const badgesRef = useRef(null);
+
+  const typedSubtitle = useTypewriter(
+    'ETO Cadet // Embedded Systems Engineer // YIP 4.0 Innovator',
+    35,
+    600
+  );
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Staggered luxury reveal
-      gsap.from('.hero-reveal', {
-        y: 40,
-        opacity: 0,
-        duration: 1.1,
-        stagger: 0.15,
-        ease: 'power3.out',
-        delay: 0.2,
+    // Anime.js Stagger Reveal for massive Syne typography letters
+    if (nameContainerRef.current) {
+      const letters = nameContainerRef.current.querySelectorAll('.hero-letter');
+      anime({
+        targets: letters,
+        translateY: [60, 0],
+        opacity: [0, 1],
+        scale: [0.8, 1],
+        rotateZ: [-8, 0],
+        delay: anime.stagger(45, { start: 250 }),
+        duration: 900,
+        easing: 'easeOutBack',
       });
+    }
 
-      gsap.from('.hero-badge', {
-        scale: 0.85,
-        opacity: 0,
-        duration: 0.9,
-        ease: 'back.out(1.7)',
-        delay: 0.1,
+    // Anime.js Stagger for tactical HUD badges & quick stats
+    if (badgesRef.current) {
+      const badges = badgesRef.current.querySelectorAll('.hud-element');
+      anime({
+        targets: badges,
+        translateX: [-25, 0],
+        opacity: [0, 1],
+        delay: anime.stagger(80, { start: 700 }),
+        duration: 800,
+        easing: 'easeOutCubic',
       });
-
-      gsap.from('.hero-portrait-wrap', {
-        x: 40,
-        opacity: 0,
-        duration: 1.3,
-        ease: 'power3.out',
-        delay: 0.4,
-      });
-    }, heroRef);
-
-    return () => ctx.revert();
+    }
   }, []);
 
-  // 3D Card Tilt on Mouse Move
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rotateX = (-y / rect.height) * 16;
-    const rotateY = (x / rect.width) * 16;
-
-    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-  };
-
-  const handleMouseLeave = () => {
-    if (!cardRef.current) return;
-    cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-  };
+  const firstName = 'AUGASTIN';
+  const lastName = 'K LAZAR';
 
   return (
-    <section
-      ref={heroRef}
-      className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden"
-    >
+    <section className="relative min-h-screen pt-28 pb-20 flex items-center justify-center overflow-hidden bg-obsidian-950">
+      
+      {/* Background Blueprint Grid & Two.js Vector Canvas */}
+      <div className="absolute inset-0 bg-blueprint-grid opacity-75 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[650px] pointer-events-none opacity-40 z-0">
+        <HeroTwoWireframe />
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        {/* Terminal Header Telemetry Bar */}
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4 p-3 rounded-xl bg-obsidian-900/90 border border-cyan-electric/25 backdrop-blur-md font-mono text-xs">
+          <div className="flex items-center gap-3">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-electric opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-electric"></span>
+            </span>
+            <span className="text-cyan-electric font-semibold tracking-wider uppercase">
+              RADAR SYS // ONLINE 9.41 GHz
+            </span>
+            <span className="text-neutral-600 hidden sm:inline">|</span>
+            <span className="text-neutral-400 hidden sm:inline">
+              MOL LNG CADRE &bull; STCW III/6
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[11px] text-neutral-400">
+            <span className="text-gold-warning font-mono flex items-center gap-1">
+              <Zap className="w-3.5 h-3.5 text-gold-warning" />
+              6.6kV AUTOMATION
+            </span>
+            <span className="text-neutral-600">&bull;</span>
+            <span className="text-neutral-300 font-mono">
+              THRISSUR, KL [10.52°N, 76.21°E]
+            </span>
+          </div>
+        </div>
+
+        {/* 2-Column Terminal Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Editorial Typography & Creds */}
-          <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
+          {/* Left Column: Massive Staggered Syne Typography & Mission Specs */}
+          <div className="lg:col-span-7 flex flex-col space-y-6">
             
-            {/* Top Cadet Badge */}
-            <div className="hero-badge inline-flex items-center gap-3 px-4 py-2 rounded-full glass-card-gold self-start border border-gold/30">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gold"></span>
-              </span>
-              <span className="font-mono text-xs font-semibold tracking-widest text-gold uppercase">
-                MOL · Electro Technical Officer Cadet
-              </span>
-              <span className="hidden sm:inline text-neutral-500 font-mono text-xs">|</span>
-              <span className="hidden sm:inline font-mono text-[11px] text-neutral-400">LNG Carrier Fleets</span>
+            {/* Top Cadre Pill */}
+            <div className="self-start inline-flex items-center gap-2 px-3 py-1 rounded bg-cyan-electric/10 border border-cyan-electric/40 text-[11px] font-mono tracking-widest text-cyan-electric uppercase">
+              <Shield className="w-3.5 h-3.5 text-cyan-electric" />
+              <span>ELECTRO TECHNICAL OFFICER CADET</span>
             </div>
 
-            {/* Main Headline */}
-            <div className="space-y-3">
-              <h1 className="hero-reveal font-display text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
-                AUGASTIN <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-amber-warm to-gold-light text-glow-gold">
-                  K LAZAR
+            {/* Massive Syne Header with Anime.js Letters */}
+            <div ref={nameContainerRef} className="space-y-1">
+              <h1 className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-white leading-[1.02] flex flex-wrap">
+                <span className="mr-4 inline-flex overflow-hidden">
+                  {firstName.split('').map((char, i) => (
+                    <span
+                      key={i}
+                      className="hero-letter inline-block text-white hover:text-cyan-electric transition-colors"
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
+                <span className="inline-flex overflow-hidden text-transparent bg-clip-text bg-gradient-to-r from-cyan-electric via-gold-warning to-coral-neon text-glow-cyan">
+                  {lastName.split('').map((char, i) => (
+                    <span
+                      key={i}
+                      className="hero-letter inline-block hover:scale-105 transition-transform"
+                    >
+                      {char === ' ' ? '\u00A0' : char}
+                    </span>
+                  ))}
                 </span>
               </h1>
-              <p className="hero-reveal font-serif italic text-xl sm:text-2xl text-neutral-300 font-normal">
-                High-Voltage Maritime Systems &middot; Firmware Engineer &middot; Educational Creator
-              </p>
             </div>
 
-            {/* Bio Synopsis */}
-            <p className="hero-reveal text-base sm:text-lg text-neutral-400 font-sans max-w-xl leading-relaxed">
-              Engineering resilience across high-seas power grids at <strong className="text-white font-medium">Mitsui O.S.K. Lines</strong>, bridging deep embedded robotics, IoT telemetry, and high-fidelity creative web applications from Thrissur, Kerala.
+            {/* Typewriter Subtitle */}
+            <div className="h-8 flex items-center font-mono text-base sm:text-lg text-neutral-300">
+              <span className="text-cyan-electric mr-2">&gt;</span>
+              <span>{typedSubtitle}</span>
+              <span className="inline-block w-2.5 h-4 ml-1.5 bg-cyan-electric animate-blink" />
+            </div>
+
+            {/* Humanized Bio Description */}
+            <p className="text-neutral-400 text-sm sm:text-base leading-relaxed max-w-xl font-sans">
+              Engineering resilience across high-seas power grids at <strong className="text-white font-semibold">Mitsui O.S.K. Lines</strong>. Specialized in high-voltage 6.6kV distribution, power management systems (PMS), bare-metal firmware on STM32/FreeRTOS, and low-latency robotics. State winner of Kerala’s <strong className="text-gold-warning font-semibold">YIP 4.0</strong> for autonomous telemetry systems.
             </p>
 
-            {/* Quick Stats Grid */}
-            <div className="hero-reveal grid grid-cols-3 gap-4 pt-2 pb-4 border-y border-neutral-800/80 max-w-xl font-mono">
-              <div>
-                <div className="text-xl sm:text-2xl font-bold text-gold flex items-center gap-1">
-                  <span>LNG</span>
-                  <Anchor className="w-4 h-4 text-gold-rich" />
-                </div>
-                <div className="text-[11px] text-neutral-400 tracking-wider uppercase mt-1">
-                  Sea-Service Specialization
-                </div>
+            {/* Quick Tactical Telemetry Badges */}
+            <div ref={badgesRef} className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 font-mono text-xs">
+              <div className="hud-element p-3 rounded-lg bg-obsidian-900 border border-neutral-800 hover:border-cyan-electric/50 transition-colors">
+                <div className="text-cyan-electric font-bold text-base">MOL LNG</div>
+                <div className="text-[10px] text-neutral-500 uppercase mt-0.5">Cadre Fleet</div>
               </div>
 
-              <div>
-                <div className="text-xl sm:text-2xl font-bold text-white flex items-center gap-1">
-                  <span>6.6kV+</span>
-                  <Sparkles className="w-4 h-4 text-amber-warm" />
-                </div>
-                <div className="text-[11px] text-neutral-400 tracking-wider uppercase mt-1">
-                  High-Voltage Automation
-                </div>
+              <div className="hud-element p-3 rounded-lg bg-obsidian-900 border border-neutral-800 hover:border-gold-warning/50 transition-colors">
+                <div className="text-gold-warning font-bold text-base">6.6 kV+</div>
+                <div className="text-[10px] text-neutral-500 uppercase mt-0.5">Switchboards</div>
               </div>
 
-              <div>
-                <div className="text-xl sm:text-2xl font-bold text-marine-cyan flex items-center gap-1">
-                  <span>Full-Stack</span>
-                  <Terminal className="w-4 h-4 text-marine-cyan" />
-                </div>
-                <div className="text-[11px] text-neutral-400 tracking-wider uppercase mt-1">
-                  Firmware & 3D Web
-                </div>
+              <div className="hud-element p-3 rounded-lg bg-obsidian-900 border border-neutral-800 hover:border-cyan-electric/50 transition-colors">
+                <div className="text-white font-bold text-base">YIP 4.0</div>
+                <div className="text-[10px] text-neutral-500 uppercase mt-0.5">State Winner</div>
+              </div>
+
+              <div className="hud-element p-3 rounded-lg bg-obsidian-900 border border-neutral-800 hover:border-coral-neon/50 transition-colors">
+                <div className="text-coral-neon font-bold text-base">STM32</div>
+                <div className="text-[10px] text-neutral-500 uppercase mt-0.5">RTOS & Robotics</div>
               </div>
             </div>
 
-            {/* Call to Actions */}
-            <div className="hero-reveal flex flex-wrap items-center gap-4 pt-2">
+            {/* Tactical Actions */}
+            <div className="flex flex-wrap items-center gap-4 pt-4">
               <a
-                href="#projects"
-                onMouseEnter={() => sound.playHover()}
+                href="#journey"
                 onClick={() => sound.playClick()}
-                className="px-7 py-3.5 rounded-full bg-gradient-to-r from-gold to-amber-warm text-obsidian-950 font-mono font-bold text-sm tracking-wider uppercase flex items-center gap-3 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(229,193,88,0.45)]"
-                data-cursor-text="DISCOVER"
+                onMouseEnter={() => sound.playHover()}
+                className="px-6 py-3.5 rounded-lg bg-cyan-electric text-obsidian-950 font-mono font-bold text-xs uppercase tracking-widest flex items-center gap-2 hover:box-glow-cyan hover:scale-105 transition-all"
+                data-cursor="TRAJECTORY"
               >
-                <span>Explore Technical Works</span>
+                <span>Navigate The Journey</span>
                 <ArrowDownRight className="w-4 h-4" />
               </a>
 
               <a
-                href="#about"
-                onMouseEnter={() => sound.playHover()}
+                href="#skills-hud"
                 onClick={() => sound.playClick()}
-                className="px-6 py-3.5 rounded-full glass-card border border-neutral-700 hover:border-gold/60 text-neutral-200 hover:text-white font-mono text-sm tracking-wider uppercase transition-all duration-300"
-                data-cursor-text="EXPAND"
+                onMouseEnter={() => sound.playHover()}
+                className="px-6 py-3.5 rounded-lg bg-obsidian-900 border border-neutral-700 hover:border-gold-warning text-neutral-200 hover:text-white font-mono text-xs uppercase tracking-widest flex items-center gap-2 transition-all"
+                data-cursor="DATA HUD"
               >
-                About & Discipline
+                <Terminal className="w-4 h-4 text-gold-warning" />
+                <span>Launch Data HUD</span>
               </a>
             </div>
 
           </div>
 
-          {/* Right Column: Interactive Luxury Portrait Card */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div
-              className="hero-portrait-wrap relative w-full max-w-md"
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-            >
-              {/* Backlight Ambient Glow */}
-              <div className="absolute -inset-4 bg-gradient-to-tr from-amber-warm/30 via-gold/20 to-transparent blur-3xl opacity-70 -z-10 rounded-3xl" />
-
-              {/* 3D Tilt Card Frame */}
-              <div
-                ref={cardRef}
-                className="relative rounded-2xl p-3 bg-gradient-to-b from-gold/30 via-neutral-800/40 to-obsidian-900 border border-gold/40 shadow-2xl transition-transform duration-200 ease-out"
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                {/* Photo Container */}
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-obsidian-900 group">
+          {/* Right Column: Tactical Blueprint Portrait with Vector Overlay */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="relative w-full max-w-sm sm:max-w-md">
+              
+              {/* Outer Cyan Cyber HUD Bracket Corners */}
+              <div className="hud-bracket p-3 rounded-2xl bg-obsidian-900/90 border border-cyan-electric/30 shadow-2xl relative">
+                
+                {/* Image Container with Scanlines & Blueprint Markings */}
+                <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-obsidian-950 border border-neutral-800 group">
                   <img
                     src="./assets/me1.png"
-                    alt="Augastin K Lazar — Electro Technical Officer Cadet & Creative Technologist"
-                    className="w-full h-full object-cover object-center filter saturate-105 contrast-105 transition-transform duration-700 group-hover:scale-105"
+                    alt="Augastin K Lazar — Electro Technical Officer Cadet & Embedded Systems Engineer"
+                    className="w-full h-full object-cover filter contrast-110 saturate-105 group-hover:scale-105 transition-transform duration-700"
                     loading="eager"
                   />
 
-                  {/* Editorial Film Grain & Sunset Gradient Wash */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent opacity-80" />
+                  {/* Scanline overlay */}
+                  <div className="scanlines absolute inset-0 opacity-40" />
 
-                  {/* Overlaid Maritime Cadre Badge */}
-                  <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
-                    <span className="px-3 py-1 rounded-md bg-obsidian-950/80 backdrop-blur-md border border-gold/40 text-[10px] font-mono tracking-widest text-gold uppercase flex items-center gap-1.5">
-                      <ShieldCheck className="w-3.5 h-3.5 text-gold" />
-                      MOL CADET REGISTRY
+                  {/* Blueprint Coordinates & Status Tag */}
+                  <div className="absolute top-3 left-3 right-3 flex justify-between items-center text-[10px] font-mono">
+                    <span className="px-2 py-0.5 rounded bg-obsidian-950/90 text-cyan-electric border border-cyan-electric/40">
+                      ID // ETO-32-MOL
                     </span>
-                    <span className="px-2.5 py-1 rounded-md bg-obsidian-950/80 backdrop-blur-md border border-neutral-700 text-[10px] font-mono tracking-widest text-neutral-400">
-                      KL-08 // IN
+                    <span className="px-2 py-0.5 rounded bg-obsidian-950/90 text-gold-warning border border-gold-warning/40">
+                      TARGET: LOCKED
                     </span>
                   </div>
 
-                  {/* Bottom Portrait Caption */}
-                  <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl glass-card border border-white/10 z-10 space-y-1">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-display font-bold text-white text-base tracking-wide">
-                        Augastin K Lazar
-                      </h3>
-                      <span className="w-2 h-2 rounded-full bg-marine-cyan animate-pulse" />
+                  {/* Bottom HUD Dossier Strip */}
+                  <div className="absolute bottom-3 inset-x-3 p-3 rounded-lg bg-obsidian-950/90 border border-white/10 backdrop-blur-md font-mono text-xs space-y-1">
+                    <div className="flex items-center justify-between text-white font-bold">
+                      <span>AUGASTIN K LAZAR</span>
+                      <span className="w-2 h-2 rounded-full bg-cyan-electric animate-pulse" />
                     </div>
-                    <p className="text-[11px] font-mono text-neutral-400">
-                      Thrissur, Kerala &bull; Mitsui O.S.K. Lines
-                    </p>
-                    <div className="pt-2 flex items-center justify-between text-[10px] font-mono text-gold border-t border-white/5">
-                      <span>AUTOMATION & FIRMWARE</span>
-                      <span>ACTIVE HARBOR</span>
+                    <div className="text-[10px] text-neutral-400 flex items-center justify-between border-t border-neutral-800 pt-1">
+                      <span>MITSUI O.S.K. LINES</span>
+                      <span className="text-cyan-electric">LNG FLEETS</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Subtle outer tech marks */}
-                <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-gold pointer-events-none" />
-                <div className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-gold pointer-events-none" />
+                {/* Technical Corner Degree Labels */}
+                <div className="absolute -bottom-2 -left-2 text-[9px] font-mono text-cyan-electric/50">
+                  SYS_RADAR.01
+                </div>
+                <div className="absolute -top-2 -right-2 text-[9px] font-mono text-gold-warning/50">
+                  REF: 6.6kV
+                </div>
               </div>
+
             </div>
           </div>
 
         </div>
+
       </div>
     </section>
   );
