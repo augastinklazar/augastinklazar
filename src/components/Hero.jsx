@@ -29,69 +29,79 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Main Dramatic Editorial Centerpiece */}
-      <div className="my-auto py-12 flex flex-col gap-6">
-        <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.25em] text-[#f4ce15] flex items-center gap-2">
-          <span className="w-6 h-[1px] bg-[#f4ce15]" />
-          <span>High-Voltage Maritime Systems &bull; Embedded Firmware</span>
-        </p>
+      {/* Main Centerpiece (Left 60% holds copy with clean backdrop; Right 40% frames 3D particle face) */}
+      <div className="my-auto py-8 grid grid-cols-1 lg:grid-cols-12 items-center gap-8">
+        <div className="lg:col-span-7 flex flex-col gap-6">
+          <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.25em] text-[#f4ce15] flex items-center gap-2">
+            <span className="w-6 h-[1px] bg-[#f4ce15]" />
+            <span>High-Voltage Maritime Systems &bull; Embedded Firmware</span>
+          </p>
 
-        {/* Big Staggered Blur Title */}
-        <h1 
-          className="t-110 font-sans font-medium text-[#f0f2f0] tracking-tight leading-[0.95] max-w-5xl"
-          aria-label={name}
-        >
-          {name.split('').map((char, index) => (
-            <span
-              key={index}
-              className="inline-block transition-all duration-700 ease-out"
-              style={{
-                animation: mounted
-                  ? `blurIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) ${0.1 + index * 0.035}s forwards`
-                  : 'none',
-                opacity: mounted ? undefined : 0,
-                filter: mounted ? undefined : 'blur(12px)',
-              }}
-            >
-              {char === ' ' ? '\u00A0' : char}
+          {/* Big Staggered Blur Title */}
+          <h1 
+            className="t-110 font-sans font-medium text-[#f0f2f0] tracking-tight leading-[0.95]"
+            aria-label={name}
+          >
+            {name.split('').map((char, index) => (
+              <span
+                key={index}
+                className="inline-block transition-all duration-700 ease-out"
+                style={{
+                  animation: mounted
+                    ? `blurIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) ${0.1 + index * 0.035}s forwards`
+                    : 'none',
+                  opacity: mounted ? undefined : 0,
+                  filter: mounted ? undefined : 'blur(12px)',
+                }}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
+          </h1>
+
+          {/* Editorial Subtitle with Blur Reveal */}
+          <p
+            className="t-30 font-sans text-[#8b8f8c] font-normal leading-relaxed transition-all duration-1000 ease-out"
+            style={{
+              animation: mounted
+                ? 'blurIn 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards'
+                : 'none',
+              opacity: mounted ? undefined : 0,
+              filter: mounted ? undefined : 'blur(12px)',
+            }}
+          >
+            {role}
+          </p>
+
+          {/* Feature Tags Pill Row */}
+          <div 
+            className="flex flex-wrap items-center gap-2.5 pt-2 transition-all duration-1000"
+            style={{
+              animation: mounted
+                ? 'blurIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards'
+                : 'none',
+              opacity: mounted ? undefined : 0,
+              filter: mounted ? undefined : 'blur(12px)',
+            }}
+          >
+            <span className="px-3 py-1 rounded-full bg-[#26262b]/80 border border-[#f0f2f0]/10 text-xs font-mono text-[#f0f2f0]">
+              6.6kV Switchboard Synchronization
             </span>
-          ))}
-        </h1>
+            <span className="px-3 py-1 rounded-full bg-[#26262b]/80 border border-[#f0f2f0]/10 text-xs font-mono text-[#f4ce15]">
+              STM32 Bare-Metal & FreeRTOS
+            </span>
+            <span className="px-3 py-1 rounded-full bg-[#26262b]/80 border border-[#f0f2f0]/10 text-xs font-mono text-[#379777]">
+              WebGL Spatial Digital Twins
+            </span>
+          </div>
+        </div>
 
-        {/* Editorial Subtitle with Blur Reveal */}
-        <p
-          className="t-30 font-sans text-[#8b8f8c] font-normal max-w-3xl leading-relaxed transition-all duration-1000 ease-out"
-          style={{
-            animation: mounted
-              ? 'blurIn 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards'
-              : 'none',
-            opacity: mounted ? undefined : 0,
-            filter: mounted ? undefined : 'blur(12px)',
-          }}
-        >
-          {role}
-        </p>
-
-        {/* Feature Tags Pill Row */}
-        <div 
-          className="flex flex-wrap items-center gap-2.5 pt-2 transition-all duration-1000"
-          style={{
-            animation: mounted
-              ? 'blurIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards'
-              : 'none',
-            opacity: mounted ? undefined : 0,
-            filter: mounted ? undefined : 'blur(12px)',
-          }}
-        >
-          <span className="px-3 py-1 rounded-full bg-[#26262b] border border-[#f0f2f0]/10 text-xs font-mono text-[#f0f2f0]">
-            6.6kV Switchboard Synchronization
-          </span>
-          <span className="px-3 py-1 rounded-full bg-[#26262b] border border-[#f0f2f0]/10 text-xs font-mono text-[#f4ce15]">
-            STM32 Bare-Metal & FreeRTOS
-          </span>
-          <span className="px-3 py-1 rounded-full bg-[#26262b] border border-[#f0f2f0]/10 text-xs font-mono text-[#379777]">
-            WebGL Spatial Digital Twins
-          </span>
+        {/* Right side spacer that frames the 3D particle face */}
+        <div className="hidden lg:flex lg:col-span-5 flex-col items-end justify-center pointer-events-none pr-4">
+          <div className="px-3 py-1.5 rounded-full bg-[#26262b]/40 border border-[#f0f2f0]/10 text-[10px] font-mono text-[#8b8f8c] flex items-center gap-2 backdrop-blur-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#f4ce15] animate-ping" />
+            <span>3D SPATIAL RECONSTRUCTION // AUG-PORTRAIT</span>
+          </div>
         </div>
       </div>
 

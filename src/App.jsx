@@ -24,12 +24,13 @@ export default function App() {
     }
     window.scrollTo(0, 0);
 
-    // Initialize 60fps Lenis smooth scroll
+    // Instantaneous, snappy Lenis scroll (0.2s - 0.3s response without input lag)
     const lenis = new Lenis({
-      lerp: 0.12,
+      lerp: 0.24, // Immediate reaction on first wheel tick
+      duration: 0.32, // Smoothly settles in ~0.3s
       smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
+      wheelMultiplier: 1.15,
+      touchMultiplier: 1.4,
       infinite: false,
     });
 
