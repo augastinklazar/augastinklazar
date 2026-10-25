@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { MapPin, Clock, Cpu, Terminal, Wrench } from 'lucide-react';
 import RisoPortraitReveal from './RisoPortraitReveal';
+import me1Img from '../assets/me1.png';
 
 export default function Origins() {
   const [isVisible, setIsVisible] = useState(false);
@@ -61,7 +62,7 @@ export default function Origins() {
             transform: isVisible ? 'translateY(0)' : 'translateY(24px)',
           }}
         >
-          <RisoPortraitReveal imageSrc="/me1.png" />
+          <RisoPortraitReveal imageSrc={me1Img} />
         </div>
 
         {/* Right Column: Editorial Copy & Telemetry */}
