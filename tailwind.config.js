@@ -8,67 +8,49 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Highway Night & Neon Ember Palette
-        vantablack: '#050505', // Base / Background
-        charcoal: {
-          DEFAULT: '#141414', // Surface / Panels
-          light: '#1F1F1F',
-          border: '#292929',
+        graphite: {
+          DEFAULT: '#1e1e22',
+          deep: '#161619',
+          surface: '#26262b',
+          light: '#2f2f35',
+          border: 'rgba(240, 242, 240, 0.08)',
         },
-        ember: {
-          DEFAULT: '#FF6D00', // Primary Glow / Interactions / Cursor
-          hover: '#FF851A',
-          glow: 'rgba(255, 109, 0, 0.4)',
+        champagne: {
+          DEFAULT: '#f0f2f0',
+          pure: '#ffffff',
+          dim: '#d2d6d3',
         },
-        signal: {
-          DEFAULT: '#FFC400', // Secondary Accent / Waypoints / Alerts
-          light: '#FFD54F',
-          glow: 'rgba(255, 196, 0, 0.4)',
-        },
-        steel: {
-          DEFAULT: '#9E9E9E', // Body Text (Neutral Steel)
-          light: '#BDBDBD',
-          dark: '#757575',
-        },
-        // Maintain semantic aliases
-        cyan: {
-          electric: '#FF6D00',
+        muted: {
+          DEFAULT: '#8b8f8c',
+          dark: '#585c59',
+          light: '#a3a7a4',
         },
         gold: {
-          warning: '#FFC400',
-          DEFAULT: '#FFC400',
+          DEFAULT: '#f4ce15',
+          hover: '#ffd829',
+          glow: 'rgba(244, 206, 21, 0.35)',
         },
-        coral: {
-          neon: '#FF6D00',
-        },
-        obsidian: {
-          950: '#050505',
-          900: '#141414',
-          850: '#1A1A1A',
-          800: '#242424',
-          700: '#2E2E2E',
+        emerald: {
+          DEFAULT: '#379777',
+          hover: '#42b38e',
+          glow: 'rgba(55, 151, 119, 0.35)',
         },
       },
       fontFamily: {
-        display: ['Syne', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
-        sans: ['Plus Jakarta Sans', 'sans-serif'],
+        sans: ['"Inter Tight"', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       animation: {
-        'spin-slow': 'spin 24s linear infinite',
-        'radar-sweep': 'radar-sweep 3.5s linear infinite',
-        'blink': 'blink 1s step-start infinite',
+        'spin-slow': 'spin 32s linear infinite',
+        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
-        'radar-sweep': {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' },
-        },
-        'blink': {
-          '0%, 50%': { opacity: '1' },
-          '51%, 100%': { opacity: '0' },
-        },
-      },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-8px)' },
+        }
+      }
     },
   },
   plugins: [],

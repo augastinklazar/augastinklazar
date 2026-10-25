@@ -2,140 +2,160 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #1e1e22;
+  --background-deep: #161619;
+  --surface: #26262b;
+  --surface-light: #2f2f35;
+  --foreground: #f0f2f0;
+  --muted: #8b8f8c;
+  --accent: #f4ce15;
+  --accent-secondary: #379777;
+  --font-sans: "Inter Tight", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
 @layer base {
   * {
     box-sizing: border-box;
   }
   
   html {
-    background-color: #050505;
-    color: #9E9E9E;
-    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
   body {
-    background-color: #050505;
-    color: #9E9E9E;
+    background-color: var(--background);
+    color: var(--foreground);
+    min-height: 100svh;
     overflow-x: hidden;
     position: relative;
+    selection-background-color: var(--accent);
   }
 
-  /* Custom high-contrast highway scrollbar */
+  ::selection {
+    background: var(--accent);
+    color: var(--background-deep);
+  }
+
+  /* Minimalist Ingrassia scrollbar */
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #050505;
+    background: #161619;
   }
   ::-webkit-scrollbar-thumb {
-    background: #242424;
-    border-radius: 0px;
-    border: 1px solid #FF6D00;
+    background: #2e2e34;
+    border-radius: 9999px;
+    border: 1px solid rgba(240, 242, 240, 0.05);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #FF6D00;
+    background: var(--accent);
   }
 }
 
-@layer utilities {
-  /* Fiery Neon Ember & Signal Yellow Glows */
-  .text-glow-ember {
-    text-shadow: 0 0 16px rgba(255, 109, 0, 0.8), 0 0 32px rgba(255, 109, 0, 0.4);
-  }
-  .text-glow-signal {
-    text-shadow: 0 0 16px rgba(255, 196, 0, 0.8), 0 0 32px rgba(255, 196, 0, 0.4);
-  }
-  
-  .box-glow-ember {
-    box-shadow: 0 0 30px -5px rgba(255, 109, 0, 0.4), inset 0 0 15px rgba(255, 109, 0, 0.1);
-  }
-  .box-glow-signal {
-    box-shadow: 0 0 30px -5px rgba(255, 196, 0, 0.4), inset 0 0 15px rgba(255, 196, 0, 0.1);
-  }
+/* Ingrassia Fluid Typography Hierarchy (Scaled via viewport units) */
+.t-16 {
+  font-size: clamp(0.85rem, 0.8333vw, 1rem);
+  line-height: 1.4;
+}
 
-  /* Matte Charcoal Terminal Card */
-  .terminal-card {
-    background: rgba(20, 20, 20, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 109, 0, 0.22);
-    position: relative;
-  }
+.t-20 {
+  font-size: clamp(1rem, 1.041vw, 1.35rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
 
-  /* Cut corner HUD tech styling in Neon Ember */
-  .hud-bracket {
-    position: relative;
+.t-30 {
+  font-size: clamp(1.4rem, 1.5625vw, 2.1rem);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.t-45 {
+  font-size: clamp(1.85rem, 2.343vw, 3.2rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.t-85 {
+  font-size: clamp(2.5rem, 4.427vw, 5.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+
+.t-110 {
+  font-size: clamp(3.2rem, 5.729vw, 7.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+/* Staggered Blur Text Reveal Keyframes */
+@keyframes blurIn {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(20px);
   }
-  .hud-bracket::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    width: 10px;
-    height: 10px;
-    border-top: 2px solid #FF6D00;
-    border-left: 2px solid #FF6D00;
-    pointer-events: none;
-  }
-  .hud-bracket::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 10px;
-    height: 10px;
-    border-bottom: 2px solid #FF6D00;
-    border-right: 2px solid #FF6D00;
-    pointer-events: none;
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
   }
 }
 
-/* Empty highway night blueprint grid background on Vantablack */
-.bg-blueprint-grid {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to right, rgba(255, 109, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 109, 0, 0.04) 1px, transparent 1px);
-  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+.blur-anim {
+  animation: blurIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Subtle highway grain / noise overlay */
-.bg-noise {
-  background-image: radial-gradient(rgba(255, 109, 0, 0.06) 1px, transparent 0);
-  background-size: 28px 28px;
-}
-
-/* Scanline overlay effect */
-.scanlines {
-  background: linear-gradient(
-    rgba(5, 5, 5, 0) 50%, 
-    rgba(0, 0, 0, 0.45) 50%
-  );
-  background-size: 100% 4px;
+/* Film Grain Texture Simulation */
+.noise-layer {
+  position: fixed;
+  inset: -100%;
+  width: 300%;
+  height: 300%;
   pointer-events: none;
+  z-index: 40;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  animation: grain 3s steps(5, end) infinite;
 }
 
-/* Hardware scanlines overlay simulating CRT beam */
-.hardware-scanlines {
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.03) 0px,
-    rgba(255, 255, 255, 0.03) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  pointer-events: none !important;
-  mix-blend-mode: overlay;
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
 }
 
-/* Hide default cursor on fine pointer devices */
-@media (hover: hover) and (pointer: fine) {
-  body {
-    cursor: none;
-  }
-  a, button, input, textarea, select, [role="button"], [data-cursor] {
-    cursor: none;
-  }
+/* Card Surface Depth */
+.glass-surface {
+  background: rgba(38, 38, 43, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(240, 242, 240, 0.08);
+}
+
+.glass-surface-hover:hover {
+  background: rgba(47, 47, 54, 0.85);
+  border-color: rgba(244, 206, 21, 0.3);
+}
+
+/* Text balance utility */
+.text-balance {
+  text-wrap: balance;
 }

@@ -1,28 +1,32 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Lenis from '@studio-freight/lenis';
-import HardwareTextures from './components/HardwareTextures';
+import MorphingParticleScene from './components/canvas/MorphingParticleScene';
+import NoiseOverlay from './components/NoiseOverlay';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import TheJourney from './components/TheJourney';
-import HorizontalSchematicExperience from './components/HorizontalSchematicExperience';
-import ExplodedBlueprint25D from './components/ExplodedBlueprint25D';
-import SkillsHUD from './components/SkillsHUD';
-import BlueprintSpecs from './components/BlueprintSpecs';
-import Projects from './components/Projects';
-import TerminalFooter from './components/TerminalFooter';
+import Statement from './components/Statement';
+import GlobalFleet from './components/GlobalFleet';
+import Origins from './components/Origins';
+import Philosophy from './components/Philosophy';
+import SelectedWorks from './components/SelectedWorks';
+import CapabilitiesMatrix from './components/CapabilitiesMatrix';
+import MonogramContact from './components/MonogramContact';
+import TerminalModal from './components/TerminalModal';
 
 export default function App() {
+  const [terminalOpen, setTerminalOpen] = useState(false);
+
   useEffect(() => {
-    // Force browser to start at Hero section on load/reload
+    // Reset scroll restoration on refresh
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
 
-    // Ultra-fast, instantaneous, 60fps Lenis smooth scroll
+    // Initialize 60fps Lenis smooth scroll
     const lenis = new Lenis({
-      lerp: 0.18, // Immediate 1-frame response without input lag
+      lerp: 0.12,
       smoothWheel: true,
       wheelMultiplier: 1.0,
       touchMultiplier: 1.2,
@@ -30,7 +34,6 @@ export default function App() {
     });
 
     window.lenis = lenis;
-    lenis.scrollTo(0, { immediate: true });
 
     function raf(time) {
       lenis.raf(time);
@@ -39,7 +42,7 @@ export default function App() {
 
     const animId = requestAnimationFrame(raf);
 
-    // Global smooth click interceptor for all hash links (#journey, #skills-hud, #terminal, etc.)
+    // Smooth scroll for internal hash links
     const handleAnchorClick = (e) => {
       const anchor = e.target.closest('a[href^="#"]');
       if (!anchor) return;
@@ -48,14 +51,14 @@ export default function App() {
 
       if (href === '#' || href === '#hero') {
         e.preventDefault();
-        lenis.scrollTo(0, { duration: 1.0 });
+        lenis.scrollTo(0, { duration: 1.2 });
         return;
       }
 
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -70, duration: 1.2 });
+        lenis.scrollTo(target, { offset: -60, duration: 1.4 });
       }
     };
 
@@ -70,42 +73,51 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-vantablack text-steel font-mono selection:bg-ember selection:text-vantablack overflow-x-hidden antialiased">
-      {/* 1. Global Hardware Textures: feTurbulence CRT Noise & Hardware Scanlines */}
-      <HardwareTextures />
+    <div className="relative min-h-screen bg-[#1e1e22] text-[#f0f2f0] font-sans antialiased overflow-x-hidden selection:bg-[#f4ce15] selection:text-[#1e1e22]">
+      {/* 1. Signature Background Three.js Morphing Particle Canvas */}
+      <MorphingParticleScene />
 
-      {/* Custom Crosshair Cursor with Sonar Ping in Neon Ember */}
+      {/* 2. Tactile Film Grain Texture Overlay */}
+      <NoiseOverlay />
+
+      {/* 3. Magnetic Fluid Custom Cursor */}
       <CustomCursor />
 
-      {/* Floating Tactical Glassmorphic Header */}
-      <Navbar />
+      {/* 4. Minimalist Ingrassia-style Navbar */}
+      <Navbar onOpenTerminal={() => setTerminalOpen(true)} />
 
-      {/* Main Highway Night Cyberpunk Sections */}
+      {/* 5. Main Editorial Flow Sections */}
       <main className="relative z-10">
-        {/* Section 1: The Terminal Hero with Two.js Vector Wireframe */}
+        {/* Hero Section */}
         <Hero />
 
-        {/* Section 2: The Journey - Moving SVG Vector Timeline with Signal Yellow Waypoints */}
-        <TheJourney />
+        {/* Vision Statement */}
+        <Statement />
 
-        {/* Section 3: Experience - Horizontal Schematic Pan (Sticky 60fps Vector Track) */}
-        <HorizontalSchematicExperience />
+        {/* Global Operations & Maritime Fleet */}
+        <GlobalFleet />
 
-        {/* Section 4: 2.5D Interactive Exploded Blueprint Interstitial (Isometric 3-Layer Stack) */}
-        <ExplodedBlueprint25D />
+        {/* Roots & Hardware Workbench */}
+        <Origins />
 
-        {/* Section 5: Cyberpunk Polar Radar HUD & Number-Scramble Decoders */}
-        <SkillsHUD />
+        {/* Engineering Philosophy */}
+        <Philosophy />
 
-        {/* Section 6: Blueprint Specifications & Personal Manifesto */}
-        <BlueprintSpecs />
+        {/* Selected Works with Live Interactive Canvas Simulations */}
+        <SelectedWorks />
 
-        {/* Section 7: Featured Engineering Dossiers */}
-        <Projects />
+        {/* Systems & Capabilities Matrix */}
+        <CapabilitiesMatrix />
+
+        {/* Contact, Interactive Monogram & Micro-Footer */}
+        <MonogramContact onOpenTerminal={() => setTerminalOpen(true)} />
       </main>
 
-      {/* Section 8: Interactive Terminal Command Prompt Contact Footer */}
-      <TerminalFooter />
+      {/* 6. Slide-Over Interactive CLI Terminal Modal */}
+      <TerminalModal
+        isOpen={terminalOpen}
+        onClose={() => setTerminalOpen(false)}
+      />
     </div>
   );
 }
