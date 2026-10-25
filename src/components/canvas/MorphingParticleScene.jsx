@@ -179,9 +179,9 @@ export default function MorphingParticleScene() {
       mouse.x += (mouse.targetX - mouse.x) * 0.06;
       mouse.y += (mouse.targetY - mouse.y) * 0.06;
 
-      // Camera parallax
-      camera.position.x = mouse.x * 3.5;
-      camera.position.y = mouse.y * 2.5;
+      // Camera parallax (subtle)
+      camera.position.x = mouse.x * 1.8;
+      camera.position.y = mouse.y * 1.2;
       camera.lookAt(0, 0, 0);
 
       // Scroll progress
@@ -201,18 +201,18 @@ export default function MorphingParticleScene() {
           let hy = posHero[i3 + 1];
           let hz = posHero[i3 + 2];
 
-          // 3D Gaze & Head Tracking for Avatar points
+          // Subtle hover tilt (keeps avatar facing front without constant spin)
           if (i < FACE_COUNT) {
-            const rotY = mouse.x * 0.32;
-            const rotX = -mouse.y * 0.22;
+            const rotY = mouse.x * 0.08;
+            const rotX = -mouse.y * 0.05;
             const cosY = Math.cos(rotY);
             const sinY = Math.sin(rotY);
             const cosX = Math.cos(rotX);
             const sinX = Math.sin(rotX);
 
-            // Pivot relative to face center (x: 33.3, y: 1.0, z: 0)
-            const dx = hx - 33.3;
-            const dy = hy - 1.0;
+            // Pivot relative to face center (x: 34.0, y: -3.5, z: 0)
+            const dx = hx - 34.0;
+            const dy = hy - (-3.5);
             const dz = hz;
 
             const rx1 = dx * cosY + dz * sinY;
@@ -221,8 +221,8 @@ export default function MorphingParticleScene() {
             const ry2 = dy * cosX - rz1 * sinX;
             const rz2 = dy * sinX + rz1 * cosX;
 
-            hx = 33.3 + rx1;
-            hy = 1.0 + ry2;
+            hx = 34.0 + rx1;
+            hy = -3.5 + ry2;
             hz = rz2;
           }
 
@@ -249,7 +249,8 @@ export default function MorphingParticleScene() {
           tz = posBeacon[i3 + 2] * (1 - t) + (posWave[i3 + 2] + Math.cos(elapsedTime * 1.2 + posWave[i3] * 0.08) * 2.5) * t;
         }
 
-        const noise = Math.sin(elapsedTime * 0.7 + i * 0.1) * 0.1;
+        // Avatar stays crisp and static; only ambient stars or later stages breathe
+        const noise = (i < FACE_COUNT && scrollProgress < 0.18) ? 0 : Math.sin(elapsedTime * 0.7 + i * 0.1) * 0.08;
         positions[i3] += (tx + noise - positions[i3]) * 0.09;
         positions[i3 + 1] += (ty + noise - positions[i3 + 1]) * 0.09;
         positions[i3 + 2] += (tz + noise - positions[i3 + 2]) * 0.09;
@@ -257,11 +258,16 @@ export default function MorphingParticleScene() {
 
       geometry.attributes.position.needsUpdate = true;
 
-      // Rotating Globe
-      if (scrollProgress >= 0.20 && scrollProgress < 0.52) {
+      // Particle system rotation:
+      // Hero avatar is static and front-facing (no continuous spin)
+      if (scrollProgress < 0.18) {
+        particles.rotation.set(0, 0, 0);
+      } else if (scrollProgress >= 0.20 && scrollProgress < 0.52) {
+        // Rotating Globe stage
         particles.rotation.y = elapsedTime * 0.22;
         particles.rotation.x = 0.22;
       } else {
+        // Ambient drift for later sections
         particles.rotation.y = elapsedTime * 0.015;
         particles.rotation.x = Math.sin(elapsedTime * 0.03) * 0.04;
       }
