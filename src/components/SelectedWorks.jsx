@@ -2,6 +2,58 @@ import { useState, useEffect, useRef } from 'react';
 import { ExternalLink, Github, ChevronDown, ChevronUp, Zap, Cpu, Radio, Box, Activity, ShieldAlert, Sparkles } from 'lucide-react';
 
 /* -------------------------------------------------------------
+   Interactive 3D Perspective Tilt Wrapper (Awwwards Polish)
+   ------------------------------------------------------------- */
+function TiltCard({ children, className = '' }) {
+  const cardRef = useRef(null);
+  const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg)');
+  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+
+    const rotX = -((y - cy) / cy) * 4.5;
+    const rotY = ((x - cx) / cx) * 4.5;
+
+    setTransform(`perspective(1200px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`);
+    setGlare({
+      x: (x / rect.width) * 100,
+      y: (y / rect.height) * 100,
+      opacity: 0.15,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTransform('perspective(1200px) rotateX(0deg) rotateY(0deg)');
+    setGlare({ x: 50, y: 50, opacity: 0 });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`relative transition-transform duration-300 ease-out will-change-transform ${className}`}
+      style={{ transform }}
+    >
+      {/* Specular Glare Sheen */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-300 z-30"
+        style={{
+          background: `radial-gradient(circle 320px at ${glare.x}% ${glare.y}%, rgba(244, 206, 21, ${glare.opacity}), transparent 80%)`,
+        }}
+      />
+      {children}
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------
    Interactive Canvas 1: High-Voltage Synchroscope & Power Grid
    ------------------------------------------------------------- */
 function SynchroscopeCanvas() {
@@ -163,38 +215,32 @@ function GimbalTrackerCanvas() {
       const cy = canvas.height / 2;
       t += 0.03;
 
-      // Simulated ship heave + motor FOC stabilization
       const targetPitch = Math.sin(t * 1.2) * 18;
       const targetRoll = Math.cos(t * 0.9) * 14;
       setPitch(targetPitch);
       setRoll(targetRoll);
 
-      // Outer Pitch Ring (Simulated 3D projection)
       ctx.save();
       ctx.translate(cx, cy);
       ctx.rotate((targetRoll * Math.PI) / 180);
 
-      // Ring 1 (Yaw chassis)
       ctx.strokeStyle = '#26262b';
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.arc(0, 0, 52, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Ring 2 (Pitch gimbal ring)
       ctx.strokeStyle = '#f4ce15';
       ctx.lineWidth = 2.5;
       ctx.beginPath();
       ctx.ellipse(0, 0, 44, Math.max(10, 44 * Math.cos((targetPitch * Math.PI) / 180)), 0, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Inner stabilized sensor payload
       ctx.fillStyle = '#379777';
       ctx.beginPath();
       ctx.arc(0, 0, 8, 0, Math.PI * 2);
       ctx.fill();
 
-      // Gyro vector normal
       ctx.strokeStyle = '#f0f2f0';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -204,7 +250,6 @@ function GimbalTrackerCanvas() {
 
       ctx.restore();
 
-      // Mini Kalman Waveform in bottom corner
       ctx.strokeStyle = '#379777';
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -272,7 +317,6 @@ function LoraMeshCanvas() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       t += 0.025;
 
-      // Draw mesh links
       ctx.strokeStyle = 'rgba(240, 242, 240, 0.08)';
       ctx.lineWidth = 1;
       for (let i = 0; i < nodes.length - 1; i++) {
@@ -282,7 +326,6 @@ function LoraMeshCanvas() {
         ctx.stroke();
       }
 
-      // Draw animated RF radiation waves from gateway
       const gw = nodes[3];
       const pulseR = (t * 28) % 45;
       ctx.strokeStyle = 'rgba(244, 206, 21, ' + (1 - pulseR / 45) + ')';
@@ -291,7 +334,6 @@ function LoraMeshCanvas() {
       ctx.arc(gw.x, gw.y, pulseR, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Draw nodes
       nodes.forEach((node, i) => {
         const isGw = i === 3;
         ctx.fillStyle = isGw ? '#f4ce15' : '#379777';
@@ -364,25 +406,20 @@ function LNGTwinCanvas() {
       const cy = canvas.height / 2;
       angle += 0.02;
 
-      // Draw isometric 3D vessel compartment wireframe
       ctx.strokeStyle = 'rgba(240, 242, 240, 0.15)';
       ctx.lineWidth = 1.5;
 
       const size = 38;
       const isoX = Math.cos(angle) * size;
-      const isoY = Math.sin(angle) * size * 0.45;
 
-      // Rotating 3D bounding box
       ctx.strokeRect(cx - isoX, cy - 25, isoX * 2, 50);
 
-      // Rotating turbine rotor representation
       ctx.strokeStyle = '#379777';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.arc(cx, cy, 22, angle, angle + Math.PI * 1.5);
       ctx.stroke();
 
-      // Cryogenic pipeline traces
       ctx.strokeStyle = '#f4ce15';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -538,114 +575,115 @@ export default function SelectedWorks() {
         </p>
       </div>
 
-      {/* Dossiers Grid */}
+      {/* Dossiers Grid with 3D Tilt Card Physics */}
       <div className="flex flex-col gap-24">
         {projects.map((project, idx) => {
           const isExpanded = expandedId === project.id;
 
           return (
-            <article
-              key={project.id}
-              className="group relative flex flex-col lg:flex-row items-stretch gap-10 lg:gap-14 pb-16 border-b border-[#f0f2f0]/10"
-            >
-              {/* Left Column: Interactive Visualizer & Live Simulation */}
-              <div className="w-full lg:w-1/2 flex flex-col justify-between">
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="font-mono text-xs uppercase tracking-widest text-[#f4ce15]">
-                    DOSSIER 0{idx + 1} // {project.year}
-                  </span>
-                  <div className="flex items-center gap-3">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#8b8f8c] hover:text-[#f0f2f0] transition-colors p-1"
-                      title="View GitHub Repository"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#8b8f8c] hover:text-[#f4ce15] transition-colors p-1"
-                      title="Open Live Deployment"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-
-                {/* Embedded Interactive Canvas Visualizer */}
-                <div className="w-full shadow-2xl shadow-black/40">
-                  {project.visualizer}
-                </div>
-
-                {/* Stack Badges */}
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {project.stack.map((item, sIdx) => (
-                    <span
-                      key={sIdx}
-                      className="px-2.5 py-1 rounded bg-[#26262b] border border-[#f0f2f0]/10 text-[#8b8f8c] text-[11px] font-mono hover:text-[#f0f2f0] transition-colors"
-                    >
-                      {item}
+            <TiltCard key={project.id} className="w-full">
+              <article
+                className="group relative flex flex-col lg:flex-row items-stretch gap-10 lg:gap-14 pb-16 border-b border-[#f0f2f0]/10 bg-[#26262b]/20 hover:bg-[#26262b]/40 rounded-2xl p-6 sm:p-8 transition-colors duration-300"
+              >
+                {/* Left Column: Interactive Visualizer & Live Simulation */}
+                <div className="w-full lg:w-1/2 flex flex-col justify-between">
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="font-mono text-xs uppercase tracking-widest text-[#f4ce15]">
+                      DOSSIER 0{idx + 1} // {project.year}
                     </span>
-                  ))}
-                </div>
-              </div>
+                    <div className="flex items-center gap-3">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#8b8f8c] hover:text-[#f0f2f0] transition-colors p-1"
+                        title="View GitHub Repository"
+                      >
+                        <Github className="w-4 h-4" />
+                      </a>
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#8b8f8c] hover:text-[#f4ce15] transition-colors p-1"
+                        title="Open Live Deployment"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </div>
 
-              {/* Right Column: Ingrassia Editorial Copy & Technical Specs */}
-              <div className="w-full lg:w-1/2 flex flex-col justify-between">
-                <div className="flex flex-col gap-4">
-                  <h3 className="t-30 font-sans font-medium text-[#f0f2f0] tracking-tight group-hover:text-[#f4ce15] transition-colors">
-                    {project.title}
-                  </h3>
+                  {/* Embedded Interactive Canvas Visualizer */}
+                  <div className="w-full shadow-2xl shadow-black/40">
+                    {project.visualizer}
+                  </div>
 
-                  <p className="font-mono text-xs text-[#379777] uppercase tracking-wider">
-                    {project.tagline}
-                  </p>
-
-                  <p className="text-xs font-mono text-[#8b8f8c] italic border-l-2 border-[#f4ce15]/40 pl-3">
-                    {project.collaboration}
-                  </p>
-
-                  <div className="text-sm font-sans text-[#8b8f8c] leading-relaxed flex flex-col gap-3 pt-2">
-                    {project.description.map((p, pIdx) => (
-                      <p key={pIdx}>{p}</p>
+                  {/* Stack Badges */}
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {project.stack.map((item, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="px-2.5 py-1 rounded bg-[#26262b] border border-[#f0f2f0]/10 text-[#8b8f8c] text-[11px] font-mono hover:text-[#f0f2f0] transition-colors"
+                      >
+                        {item}
+                      </span>
                     ))}
                   </div>
-
-                  <p className="text-xs font-mono text-[#d2d6d3] bg-[#26262b]/40 p-3 rounded-lg border border-[#f0f2f0]/5">
-                    <strong>Architecture Note: </strong>
-                    {project.stackNote}
-                  </p>
                 </div>
 
-                {/* Expandable Technical Specs Drawer */}
-                <div className="mt-6 pt-4 border-t border-[#f0f2f0]/5">
-                  <button
-                    onClick={() => setExpandedId(isExpanded ? null : project.id)}
-                    className="flex items-center gap-2 text-xs font-mono text-[#f4ce15] hover:text-[#f0f2f0] transition-colors"
-                  >
-                    <span>{isExpanded ? 'Collapse Engineering Specs' : 'Explore Full Hardware & Circuit Specs'}</span>
-                    {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                  </button>
+                {/* Right Column: Ingrassia Editorial Copy & Technical Specs */}
+                <div className="w-full lg:w-1/2 flex flex-col justify-between">
+                  <div className="flex flex-col gap-4">
+                    <h3 className="t-30 font-sans font-medium text-[#f0f2f0] tracking-tight group-hover:text-[#f4ce15] transition-colors">
+                      {project.title}
+                    </h3>
 
-                  {isExpanded && (
-                    <div className="mt-4 p-4 rounded-lg bg-[#161619] border border-[#f0f2f0]/10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
-                      {Object.entries(project.specs).map(([key, val]) => (
-                        <div key={key} className="flex flex-col gap-0.5">
-                          <span className="text-[#8b8f8c] text-[10px] uppercase tracking-wider">
-                            {key.replace(/([A-Z])/g, ' $1')}
-                          </span>
-                          <span className="text-[#f0f2f0]">{val}</span>
-                        </div>
+                    <p className="font-mono text-xs text-[#379777] uppercase tracking-wider">
+                      {project.tagline}
+                    </p>
+
+                    <p className="text-xs font-mono text-[#8b8f8c] italic border-l-2 border-[#f4ce15]/40 pl-3">
+                      {project.collaboration}
+                    </p>
+
+                    <div className="text-sm font-sans text-[#8b8f8c] leading-relaxed flex flex-col gap-3 pt-2">
+                      {project.description.map((p, pIdx) => (
+                        <p key={pIdx}>{p}</p>
                       ))}
                     </div>
-                  )}
+
+                    <p className="text-xs font-mono text-[#d2d6d3] bg-[#26262b]/40 p-3 rounded-lg border border-[#f0f2f0]/5">
+                      <strong>Architecture Note: </strong>
+                      {project.stackNote}
+                    </p>
+                  </div>
+
+                  {/* Expandable Technical Specs Drawer */}
+                  <div className="mt-6 pt-4 border-t border-[#f0f2f0]/5">
+                    <button
+                      onClick={() => setExpandedId(isExpanded ? null : project.id)}
+                      className="flex items-center gap-2 text-xs font-mono text-[#f4ce15] hover:text-[#f0f2f0] transition-colors"
+                    >
+                      <span>{isExpanded ? 'Collapse Engineering Specs' : 'Explore Full Hardware & Circuit Specs'}</span>
+                      {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                    </button>
+
+                    {isExpanded && (
+                      <div className="mt-4 p-4 rounded-lg bg-[#161619] border border-[#f0f2f0]/10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+                        {Object.entries(project.specs).map(([key, val]) => (
+                          <div key={key} className="flex flex-col gap-0.5">
+                            <span className="text-[#8b8f8c] text-[10px] uppercase tracking-wider">
+                              {key.replace(/([A-Z])/g, ' $1')}
+                            </span>
+                            <span className="text-[#f0f2f0]">{val}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </article>
+              </article>
+            </TiltCard>
           );
         })}
       </div>

@@ -13,6 +13,7 @@ import SelectedWorks from './components/SelectedWorks';
 import CapabilitiesMatrix from './components/CapabilitiesMatrix';
 import MonogramContact from './components/MonogramContact';
 import TerminalModal from './components/TerminalModal';
+import SectionRadar from './components/SectionRadar';
 
 export default function App() {
   const [terminalOpen, setTerminalOpen] = useState(false);
@@ -87,7 +88,10 @@ export default function App() {
       {/* 4. Minimalist Ingrassia-style Navbar */}
       <Navbar onOpenTerminal={() => setTerminalOpen(true)} />
 
-      {/* 5. Main Editorial Flow Sections */}
+      {/* 5. Awwwards Section Waypoint Radar (Right Edge) */}
+      <SectionRadar />
+
+      {/* 6. Main Editorial Flow Sections */}
       <main className="relative z-10">
         {/* Hero Section */}
         <Hero />
