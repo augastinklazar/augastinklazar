@@ -127,7 +127,7 @@ export default function TerminalModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
       <div 
-        className="w-full max-w-3xl h-[520px] bg-[#161619] rounded-xl border border-[#f0f2f0]/15 shadow-2xl flex flex-col overflow-hidden font-mono text-xs"
+        className="w-full max-w-3xl h-[85vh] max-h-[520px] bg-[#161619] rounded-xl border border-[#f0f2f0]/15 shadow-2xl flex flex-col overflow-hidden font-mono text-xs"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}

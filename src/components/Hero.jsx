@@ -17,12 +17,12 @@ export default function Hero() {
       className="relative z-10 min-h-[100svh] w-[90vw] max-w-7xl mx-auto flex flex-col justify-between pt-28 pb-12 select-none"
     >
       {/* Top telemetry line */}
-      <div className="flex items-center justify-between text-[#8b8f8c] font-mono text-[11px] tracking-widest uppercase border-b border-[#f0f2f0]/10 pb-4">
+      <div className="flex items-center justify-between text-[#8b8f8c] font-mono text-[10px] sm:text-[11px] tracking-widest uppercase border-b border-[#f0f2f0]/10 pb-4">
         <div className="flex items-center gap-2">
-          <Anchor className="w-3.5 h-3.5 text-[#379777]" />
-          <span>MOL LNG Carrier Fleet · STCW III/6 Standard</span>
+          <Anchor className="w-3.5 h-3.5 text-[#379777] shrink-0" />
+          <span className="truncate">MOL LNG Carrier Fleet · STCW III/6 Standard</span>
         </div>
-        <div className="hidden sm:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-2 shrink-0">
           <span>10.5276° N, 76.2144° E</span>
           <span className="text-[#f4ce15]">⚓</span>
           <span>Thrissur / High Seas</span>
@@ -31,15 +31,15 @@ export default function Hero() {
 
       {/* Main Centerpiece (Left 60% holds copy with clean backdrop; Right 40% frames 3D particle face) */}
       <div className="my-auto py-8 grid grid-cols-1 lg:grid-cols-12 items-center gap-8">
-        <div className="lg:col-span-7 flex flex-col gap-6">
-          <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.25em] text-[#f4ce15] flex items-center gap-2">
-            <span className="w-6 h-[1px] bg-[#f4ce15]" />
-            <span>High-Voltage Maritime Systems &bull; Embedded Firmware</span>
+        <div className="lg:col-span-7 flex flex-col gap-5 sm:gap-6 relative z-10">
+          <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#f4ce15] flex items-center gap-2">
+            <span className="w-5 sm:w-6 h-[1px] bg-[#f4ce15] shrink-0" />
+            <span className="break-words">High-Voltage Maritime Systems &bull; Embedded Firmware</span>
           </p>
 
           {/* Big Staggered Blur Title */}
           <h1 
-            className="t-110 font-sans font-medium text-[#f0f2f0] tracking-tight leading-[0.95]"
+            className="t-110 font-sans font-medium text-[#f0f2f0] tracking-tight leading-[1.0] sm:leading-[0.95] drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)]"
             aria-label={name}
           >
             {name.split('').map((char, index) => (
@@ -61,7 +61,7 @@ export default function Hero() {
 
           {/* Editorial Subtitle with Blur Reveal */}
           <p
-            className="t-30 font-sans text-[#8b8f8c] font-normal leading-relaxed transition-all duration-1000 ease-out"
+            className="t-30 font-sans text-[#8b8f8c] font-normal leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] transition-all duration-1000 ease-out"
             style={{
               animation: mounted
                 ? 'blurIn 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards'
@@ -75,7 +75,7 @@ export default function Hero() {
 
           {/* Feature Tags Pill Row */}
           <div 
-            className="flex flex-wrap items-center gap-2.5 pt-2 transition-all duration-1000"
+            className="flex flex-wrap items-center gap-2 sm:gap-2.5 pt-2 transition-all duration-1000"
             style={{
               animation: mounted
                 ? 'blurIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards'
@@ -84,13 +84,13 @@ export default function Hero() {
               filter: mounted ? undefined : 'blur(12px)',
             }}
           >
-            <span className="px-3 py-1 rounded-full bg-[#26262b]/80 border border-[#f0f2f0]/10 text-xs font-mono text-[#f0f2f0]">
+            <span className="px-2.5 sm:px-3 py-1 rounded-full bg-[#26262b]/80 border border-[#f0f2f0]/10 text-[11px] sm:text-xs font-mono text-[#f0f2f0]">
               6.6kV Switchboard Synchronization
             </span>
-            <span className="px-3 py-1 rounded-full bg-[#26262b]/80 border border-[#f0f2f0]/10 text-xs font-mono text-[#f4ce15]">
+            <span className="px-2.5 sm:px-3 py-1 rounded-full bg-[#26262b]/80 border border-[#f0f2f0]/10 text-[11px] sm:text-xs font-mono text-[#f4ce15]">
               STM32 Bare-Metal & FreeRTOS
             </span>
-            <span className="px-3 py-1 rounded-full bg-[#26262b]/80 border border-[#f0f2f0]/10 text-xs font-mono text-[#379777]">
+            <span className="px-2.5 sm:px-3 py-1 rounded-full bg-[#26262b]/80 border border-[#f0f2f0]/10 text-[11px] sm:text-xs font-mono text-[#379777]">
               WebGL Spatial Digital Twins
             </span>
           </div>
@@ -106,21 +106,21 @@ export default function Hero() {
       </div>
 
       {/* Bottom Editorial Bar with Scroll Prompt */}
-      <div className="flex items-end justify-between border-t border-[#f0f2f0]/10 pt-6 text-[#8b8f8c]">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-widest text-[#f0f2f0] font-mono">
+      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 sm:gap-0 border-t border-[#f0f2f0]/10 pt-4 sm:pt-6 text-[#8b8f8c]">
+        <div className="flex flex-col gap-1 max-w-sm">
+          <span className="text-[11px] sm:text-xs uppercase tracking-widest text-[#f0f2f0] font-mono">
             Active Status
           </span>
-          <span className="text-xs font-sans text-[#8b8f8c]">
+          <span className="text-[11px] sm:text-xs font-sans text-[#8b8f8c]">
             Navigating energy corridors · Engineering open-source hardware
           </span>
         </div>
 
         <a
           href="#statement"
-          className="group flex items-center gap-3 text-xs uppercase tracking-widest font-mono text-[#f0f2f0] hover:text-[#f4ce15] transition-colors"
+          className="group self-end sm:self-auto flex items-center gap-2 sm:gap-3 text-xs uppercase tracking-widest font-mono text-[#f0f2f0] hover:text-[#f4ce15] transition-colors shrink-0"
         >
-          <span>Scroll to explore</span>
+          <span className="text-[11px] sm:text-xs">Scroll to explore</span>
           <div className="w-8 h-8 rounded-full border border-[#f0f2f0]/20 flex items-center justify-center group-hover:border-[#f4ce15] transition-colors">
             <ArrowDown className="w-3.5 h-3.5 text-[#f4ce15] animate-bounce" />
           </div>

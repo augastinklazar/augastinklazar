@@ -34,11 +34,11 @@ export default function MonogramContact({ onOpenTerminal }) {
         </p>
 
         {/* Large Magnetic Email Link */}
-        <div className="relative group">
+        <div className="relative group max-w-full px-2">
           <a
             href={`mailto:${email}`}
             onClick={handleCopyEmail}
-            className="t-45 sm:t-85 font-sans font-medium text-[#f0f2f0] hover:text-[#f4ce15] transition-colors duration-300 tracking-tight block cursor-pointer"
+            className="text-xl sm:text-3xl md:t-45 lg:t-85 font-sans font-medium text-[#f0f2f0] hover:text-[#f4ce15] transition-colors duration-300 tracking-tight block cursor-pointer break-all sm:break-normal"
             title="Click to copy email address"
           >
             {email}

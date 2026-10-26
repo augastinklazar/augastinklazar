@@ -32,6 +32,7 @@ export default function App() {
       smoothWheel: true,
       wheelMultiplier: 1.15,
       touchMultiplier: 1.4,
+      smoothTouch: false, // Use native hardware momentum on mobile/touch screens
       infinite: false,
     });
 

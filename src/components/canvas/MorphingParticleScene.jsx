@@ -188,6 +188,23 @@ export default function MorphingParticleScene() {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollProgress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
 
+      // Responsive positioning & scale:
+      // Desktop (aspect >= 1.25): Exact unchanged coordinates (center at 34.0, scale = 1.0)
+      // Mobile / Tablet: Smoothly shifts towards center and scales to fit within visible viewport
+      const currentAspect = camera.aspect;
+      let heroScale = 1.0;
+      let heroCenterShiftX = 0;
+      let heroCenterShiftY = 0;
+
+      if (currentAspect < 1.25) {
+        const factor = Math.max(0, Math.min((1.25 - currentAspect) / (1.25 - 0.45), 1));
+        heroScale = 1.0 - factor * 0.32;
+        heroCenterShiftX = -factor * 34.0;
+        heroCenterShiftY = factor * 4.0;
+      }
+
+      const stageScale = currentAspect < 1.25 ? Math.max(0.68, Math.min(currentAspect / 1.15, 1.0)) : 1.0;
+
       const positions = geometry.attributes.position.array;
 
       for (let i = 0; i < TOTAL_PARTICLES; i++) {
@@ -195,7 +212,7 @@ export default function MorphingParticleScene() {
         let tx = 0, ty = 0, tz = 0;
 
         if (scrollProgress < 0.18) {
-          // --- HERO STAGE: Dense 3D Avatar on Right Side ---
+          // --- HERO STAGE: Dense 3D Avatar (Responsive Center on Mobile, Right on Desktop) ---
           const t = scrollProgress / 0.18;
           let hx = posHero[i3];
           let hy = posHero[i3 + 1];
@@ -203,6 +220,14 @@ export default function MorphingParticleScene() {
 
           // Subtle hover tilt (keeps avatar facing front without constant spin)
           if (i < FACE_COUNT) {
+            const origDx = posHero[i3] - 34.0;
+            const origDy = posHero[i3 + 1] - (-3.5);
+            const origDz = posHero[i3 + 2];
+
+            const scaledX = (34.0 + heroCenterShiftX) + origDx * heroScale;
+            const scaledY = (-3.5 + heroCenterShiftY) + origDy * heroScale;
+            const scaledZ = origDz * heroScale;
+
             const rotY = mouse.x * 0.08;
             const rotX = -mouse.y * 0.05;
             const cosY = Math.cos(rotY);
@@ -210,10 +235,9 @@ export default function MorphingParticleScene() {
             const cosX = Math.cos(rotX);
             const sinX = Math.sin(rotX);
 
-            // Pivot relative to face center (x: 34.0, y: -3.5, z: 0)
-            const dx = hx - 34.0;
-            const dy = hy - (-3.5);
-            const dz = hz;
+            const dx = scaledX - (34.0 + heroCenterShiftX);
+            const dy = scaledY - (-3.5 + heroCenterShiftY);
+            const dz = scaledZ;
 
             const rx1 = dx * cosY + dz * sinY;
             const rz1 = -dx * sinY + dz * cosY;
@@ -221,32 +245,32 @@ export default function MorphingParticleScene() {
             const ry2 = dy * cosX - rz1 * sinX;
             const rz2 = dy * sinX + rz1 * cosX;
 
-            hx = 34.0 + rx1;
-            hy = -3.5 + ry2;
+            hx = (34.0 + heroCenterShiftX) + rx1;
+            hy = (-3.5 + heroCenterShiftY) + ry2;
             hz = rz2;
           }
 
-          tx = hx * (1 - t) + posStatement[i3] * t;
-          ty = hy * (1 - t) + posStatement[i3 + 1] * t;
-          tz = hz * (1 - t) + posStatement[i3 + 2] * t;
+          tx = hx * (1 - t) + (posStatement[i3] * stageScale) * t;
+          ty = hy * (1 - t) + (posStatement[i3 + 1] * stageScale) * t;
+          tz = hz * (1 - t) + (posStatement[i3 + 2] * stageScale) * t;
         } else if (scrollProgress < 0.40) {
           // Statement -> Globe
           const t = (scrollProgress - 0.18) / 0.22;
-          tx = posStatement[i3] * (1 - t) + posGlobe[i3] * t;
-          ty = posStatement[i3 + 1] * (1 - t) + posGlobe[i3 + 1] * t;
-          tz = posStatement[i3 + 2] * (1 - t) + posGlobe[i3 + 2] * t;
+          tx = (posStatement[i3] * stageScale) * (1 - t) + (posGlobe[i3] * stageScale) * t;
+          ty = (posStatement[i3 + 1] * stageScale) * (1 - t) + (posGlobe[i3 + 1] * stageScale) * t;
+          tz = (posStatement[i3 + 2] * stageScale) * (1 - t) + (posGlobe[i3 + 2] * stageScale) * t;
         } else if (scrollProgress < 0.65) {
           // Globe -> Origins Beacon
           const t = (scrollProgress - 0.40) / 0.25;
-          tx = posGlobe[i3] * (1 - t) + posBeacon[i3] * t;
-          ty = posBeacon[i3 + 1] * (1 - t) + posBeacon[i3 + 1] * t;
-          tz = posGlobe[i3 + 2] * (1 - t) + posBeacon[i3 + 2] * t;
+          tx = (posGlobe[i3] * stageScale) * (1 - t) + (posBeacon[i3] * stageScale) * t;
+          ty = (posBeacon[i3 + 1] * stageScale) * (1 - t) + (posBeacon[i3 + 1] * stageScale) * t;
+          tz = (posGlobe[i3 + 2] * stageScale) * (1 - t) + (posBeacon[i3 + 2] * stageScale) * t;
         } else {
           // Origins Beacon -> Wave Matrix
           const t = Math.min((scrollProgress - 0.65) / 0.35, 1);
-          tx = posBeacon[i3] * (1 - t) + posWave[i3] * t;
-          ty = posBeacon[i3 + 1] * (1 - t) + (posWave[i3 + 1] + Math.sin(elapsedTime * 1.5 + posWave[i3] * 0.1) * 3.5) * t;
-          tz = posBeacon[i3 + 2] * (1 - t) + (posWave[i3 + 2] + Math.cos(elapsedTime * 1.2 + posWave[i3] * 0.08) * 2.5) * t;
+          tx = (posBeacon[i3] * stageScale) * (1 - t) + posWave[i3] * t;
+          ty = (posBeacon[i3 + 1] * stageScale) * (1 - t) + (posWave[i3 + 1] + Math.sin(elapsedTime * 1.5 + posWave[i3] * 0.1) * 3.5) * t;
+          tz = (posBeacon[i3 + 2] * stageScale) * (1 - t) + (posWave[i3 + 2] + Math.cos(elapsedTime * 1.2 + posWave[i3] * 0.08) * 2.5) * t;
         }
 
         // Avatar stays crisp and static; only ambient stars or later stages breathe
@@ -257,6 +281,15 @@ export default function MorphingParticleScene() {
       }
 
       geometry.attributes.position.needsUpdate = true;
+
+      // Responsive particle opacity:
+      // Desktop: 0.88 (unchanged)
+      // Mobile Hero: 0.44 for crystal-clear text contrast; 0.82 for other stages
+      if (currentAspect < 1.0) {
+        material.opacity = scrollProgress < 0.18 ? 0.42 : 0.80;
+      } else {
+        material.opacity = 0.88;
+      }
 
       // Particle system rotation:
       // Hero avatar is static and front-facing (no continuous spin)

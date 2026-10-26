@@ -221,6 +221,28 @@ export default function RisoPortraitReveal({ imageSrc = defaultMe1 }) {
     setCoords({ x: Math.round(x), y: Math.round(y) });
   };
 
+  const handleTouchMove = (e) => {
+    if (!containerRef.current || !e.touches[0]) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    mouseRef.current.targetX = x;
+    mouseRef.current.targetY = y;
+    setCoords({ x: Math.round(x), y: Math.round(y) });
+  };
+
+  const handleTouchStart = (e) => {
+    setIsHovered(true);
+    handleTouchMove(e);
+  };
+
+  const handleTouchEnd = () => {
+    setIsHovered(false);
+    mouseRef.current.targetX = -300;
+    mouseRef.current.targetY = -300;
+  };
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -237,7 +259,11 @@ export default function RisoPortraitReveal({ imageSrc = defaultMe1 }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full max-w-md sm:max-w-lg aspect-[3/4] rounded-2xl overflow-hidden bg-[#161619] border border-[#f0f2f0]/10 shadow-2xl group select-none cursor-none"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
+      className="relative w-full max-w-md sm:max-w-lg aspect-[3/4] rounded-2xl overflow-hidden bg-[#161619] border border-[#f0f2f0]/10 shadow-2xl group select-none cursor-none touch-none"
     >
       {/* Fallback Static Image (Ensures zero blank card under all circumstances) */}
       <img
@@ -268,7 +294,7 @@ export default function RisoPortraitReveal({ imageSrc = defaultMe1 }) {
       <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[10px] font-mono tracking-widest uppercase pointer-events-none z-20">
         <div className="px-2.5 py-1 rounded bg-[#1e1e22]/85 backdrop-blur-md border border-[#f0f2f0]/15 text-[#f0f2f0] flex items-center gap-2">
           <Scan className="w-3 h-3 text-[#f4ce15]" />
-          <span>{isHovered ? `[X:${coords.x} Y:${coords.y}] OPTICAL CLEARANCE` : 'HOVER TO REVEAL OPTICAL VIEW'}</span>
+          <span>{isHovered ? `[X:${coords.x} Y:${coords.y}] OPTICAL CLEARANCE` : 'TOUCH OR HOVER TO REVEAL OPTICAL VIEW'}</span>
         </div>
         <span className="text-[#8b8f8c] hidden sm:inline text-[9px]">
           PULL INK SEPARATION
