@@ -15,7 +15,7 @@ I am an **Electro Technical Officer Cadet** sailing with **Mitsui O.S.K. Lines (
 But I resort to coding and problem solving when I'm bored OR when I don't feel productive enough : )
 ---
 
-## 🧭 Core Pillars of Work
+## 🧭 What I mainly work on...
 
 ### 1. Maritime High-Voltage & Automation (MOL LNG Fleet)
 HV plants automation, PMS, Server maintenance and repair, Marine Electronics and Instrumentation.
@@ -31,7 +31,7 @@ I learn and simplify complex educational topics just for the fun of it.
 
 ---
 
-## 🔬 Featured Engineering Works & Systems
+## 🔬 Some fun works...
 
 - **High-Voltage Maritime Power & Blackout Simulator**  
   *Full-stack simulation modeling 4-generator load sharing, 6.6kV bus-tie synchronization, reverse power protection, and emergency sequence logic for training without high-voltage arc flash risks.*
